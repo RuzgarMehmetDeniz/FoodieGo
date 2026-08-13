@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodieGo.Pages.CategoriesPage"
+             Title="Kategoriler">
+
+    <!-- Ana kapsayıcı: 5 satırlı Grid -->
+    <Grid RowSpacing="0">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="160" />
+            <RowDefinition Height="80" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="80" />
+        </Grid.RowDefinitions>
+
+        <!-- 1. ÜST ADRES ALANI (açık yeşil) -->
+        <Border Grid.Row="0"
+        BackgroundColor="#C8E6C9"
+        Stroke="Transparent">
+
+            <!-- İçeriyi 3 sütuna bölüyoruz: ikon | yazı | ikon -->
+            <Grid ColumnDefinitions="Auto, *, Auto"
+          Padding="16,0"
+          VerticalOptions="Center">
+
+                <!-- Sol: konum ikonu (emoji) -->
+                <Label Grid.Column="0"
+               Text="📍"
+               FontSize="22"
+               VerticalOptions="Center" />
+
+                <!-- Orta: adres yazısı -->
+                <Label Grid.Column="1"
+               Text="Kadıköy, İstanbul"
+               FontSize="18"
+               FontAttributes="Bold"
+               VerticalOptions="Center"
+               HorizontalOptions="Start"
+               Margin="8,0,0,0" />
+
+                <!-- Sağ: bildirim ikonu (emoji) -->
+                <Label Grid.Column="2"
+               Text="🔔"
+               FontSize="22"
+               VerticalOptions="Center" />
+
+            </Grid>
+
+        </Border>
+
+        <!-- 2. BAŞLIK VE ARAMA ALANI (açık mavi) -->
+        <Border Grid.Row="1"
+        BackgroundColor="#BBDEFB"
+        Stroke="Transparent">
+
+            <!-- Öğeleri alt alta diziyoruz -->
+            <VerticalStackLayout Padding="16"
+                         Spacing="4"
+                         VerticalOptions="Center">
+
+                <!-- Ana başlık -->
+                <Label Text="Kategoriler"
+               FontSize="28"
+               FontAttributes="Bold"
+               TextColor="Black" />
+
+                <!-- Alt başlık -->
+                <Label Text="Aradığın her şey burada"
+               FontSize="16"
+               TextColor="#555555" />
+
+                <!-- Arama kutusu -->
+                <SearchBar Placeholder="Kategori veya ürün ara"
+                   Margin="0,8,0,0" />
+
+            </VerticalStackLayout>
+
+        </Border>
+
+        <!-- 3. KATEGORİ FİLTRE ALANI (açık sarı) -->
+        <Border Grid.Row="2"
+        BackgroundColor="#FFF9C4"
+        Stroke="Transparent">
+
+            <!-- Yatay kaydırılabilir alan -->
+            <ScrollView Orientation="Horizontal"
+                VerticalOptions="Center"
+                Padding="16,0">
+
+                <!-- Butonları yan yana diziyoruz -->
+                <HorizontalStackLayout Spacing="8">
+
+                    <Button Text="Tümü"
+                    BackgroundColor="#006C49"
+                    TextColor="White"
+                    CornerRadius="20"
+                    Padding="16,0"
+                    HeightRequest="40" />
+
+                    <Button Text="Meyve &amp; Sebze"
+                    BackgroundColor="#E0E0E0"
+                    TextColor="Black"
+                    CornerRadius="20"
+                    Padding="16,0"
+                    HeightRequest="40" />
+
+                    <Button Text="İçecek"
+                    BackgroundColor="#E0E0E0"
+                    TextColor="Black"
+                    CornerRadius="20"
+                    Padding="16,0"
+                    HeightRequest="40" />
+
+                    <Button Text="Atıştırmalık"
+                    BackgroundColor="#E0E0E0"
+                    TextColor="Black"
+                    CornerRadius="20"
+                    Padding="16,0"
+                    HeightRequest="40" />
+
+                    <Button Text="Süt &amp; Kahvaltı"
+                    BackgroundColor="#E0E0E0"
+                    TextColor="Black"
+                    CornerRadius="20"
+                    Padding="16,0"
+                    HeightRequest="40" />
+
+                </HorizontalStackLayout>
+
+            </ScrollView>
+
+        </Border>
+
+        <!-- 4. KATEGORİ KARTLARI ALANI (açık pembe) - kalan alan -->
+        <Border Grid.Row="3"
+        BackgroundColor="#F8BBD0"
+        Stroke="Transparent">
+
+            <!-- Kartlar sığmazsa diye dikey kaydırma -->
+            <ScrollView Padding="16">
+
+                <!-- 2 sütunlu, 3 satırlı kart ızgarası -->
+                <Grid ColumnDefinitions="*, *"
+              RowDefinitions="Auto, Auto, Auto"
+              ColumnSpacing="12"
+              RowSpacing="12">
+
+                    <!-- Kart 1: Meyve & Sebze (Satır 0, Sütun 0) -->
+                    <Border Grid.Row="0" Grid.Column="0"
+                    BackgroundColor="White"
+                    StrokeShape="RoundRectangle 16"
+                    Stroke="Transparent"
+                    Padding="16">
+                        <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
+                            <Label Text="🍎" FontSize="40" HorizontalOptions="Center" />
+                            <Label Text="Meyve &amp; Sebze" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+                            <Label Text="120+ ürün" FontSize="13" TextColor="Gray" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Kart 2: Süt & Kahvaltı (Satır 0, Sütun 1) -->
+                    <Border Grid.Row="0" Grid.Column="1"
+                    BackgroundColor="White"
+                    StrokeShape="RoundRectangle 16"
+                    Stroke="Transparent"
+                    Padding="16">
+                        <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
+                            <Label Text="🥛" FontSize="40" HorizontalOptions="Center" />
+                            <Label Text="Süt &amp; Kahvaltı" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+                            <Label Text="85+ ürün" FontSize="13" TextColor="Gray" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Kart 3: İçecek (Satır 1, Sütun 0) -->
+                    <Border Grid.Row="1" Grid.Column="0"
+                    BackgroundColor="White"
+                    StrokeShape="RoundRectangle 16"
+                    Stroke="Transparent"
+                    Padding="16">
+                        <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
+                            <Label Text="🥤" FontSize="40" HorizontalOptions="Center" />
+                            <Label Text="İçecek" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+                            <Label Text="150+ ürün" FontSize="13" TextColor="Gray" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Kart 4: Atıştırmalık (Satır 1, Sütun 1) -->
+                    <Border Grid.Row="1" Grid.Column="1"
+                    BackgroundColor="White"
+                    StrokeShape="RoundRectangle 16"
+                    Stroke="Transparent"
+                    Padding="16">
+                        <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
+                            <Label Text="🍫" FontSize="40" HorizontalOptions="Center" />
+                            <Label Text="Atıştırmalık" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+                            <Label Text="200+ ürün" FontSize="13" TextColor="Gray" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Kart 5: Kişisel Bakım (Satır 2, Sütun 0) -->
+                    <Border Grid.Row="2" Grid.Column="0"
+                    BackgroundColor="White"
+                    StrokeShape="RoundRectangle 16"
+                    Stroke="Transparent"
+                    Padding="16">
+                        <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
+                            <Label Text="🧴" FontSize="40" HorizontalOptions="Center" />
+                            <Label Text="Kişisel Bakım" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+                            <Label Text="60+ ürün" FontSize="13" TextColor="Gray" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Kart 6: Ev & Yaşam (Satır 2, Sütun 1) -->
+                    <Border Grid.Row="2" Grid.Column="1"
+                    BackgroundColor="White"
+                    StrokeShape="RoundRectangle 16"
+                    Stroke="Transparent"
+                    Padding="16">
+                        <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
+                            <Label Text="🧹" FontSize="40" HorizontalOptions="Center" />
+                            <Label Text="Ev &amp; Yaşam" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+                            <Label Text="90+ ürün" FontSize="13" TextColor="Gray" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                </Grid>
+
+            </ScrollView>
+
+        </Border>
+
+        <!-- 5. ALT NAVİGASYON ALANI (açık mor) -->
+        <Border Grid.Row="4"
+        BackgroundColor="#E1BEE7"
+        Stroke="Transparent">
+
+            <!-- 4 eşit sütun: her menü bir sütun -->
+            <Grid ColumnDefinitions="*, *, *, *"
+          VerticalOptions="Center">
+
+                <!-- Ana Sayfa (pasif - gri) -->
+                <VerticalStackLayout Grid.Column="0"
+                             Spacing="2"
+                             HorizontalOptions="Center">
+                    <Label Text="🏠" FontSize="24" HorizontalOptions="Center" />
+                    <Label Text="Ana Sayfa" FontSize="12" TextColor="Gray" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+
+                <!-- Kategoriler (aktif - yeşil) -->
+                <VerticalStackLayout Grid.Column="1"
+                             Spacing="2"
+                             HorizontalOptions="Center">
+                    <Label Text="🗂️" FontSize="24" HorizontalOptions="Center" />
+                    <Label Text="Kategoriler" FontSize="12" TextColor="#006C49" FontAttributes="Bold" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+
+                <!-- Sepet (pasif - gri) -->
+                <VerticalStackLayout Grid.Column="2"
+                             Spacing="2"
+                             HorizontalOptions="Center">
+                    <Label Text="🛒" FontSize="24" HorizontalOptions="Center" />
+                    <Label Text="Sepet" FontSize="12" TextColor="Gray" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+
+                <!-- Profil (pasif - gri) -->
+                <VerticalStackLayout Grid.Column="3"
+                             Spacing="2"
+                             HorizontalOptions="Center">
+                    <Label Text="👤" FontSize="24" HorizontalOptions="Center" />
+                    <Label Text="Profil" FontSize="12" TextColor="Gray" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+
+            </Grid>
+
+        </Border>
+
+
+    </Grid>
+
+</ContentPage>
+

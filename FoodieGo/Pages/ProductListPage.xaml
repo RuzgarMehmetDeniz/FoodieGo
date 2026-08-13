@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:FoodieGo.Helpers"
+             x:Class="FoodieGo.Pages.ProductListPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#F8F9FF"
+             Title="Meyve &amp; Sebze">
+
+    <!-- En dış Grid: içerik + üstüne binen alt bar -->
+    <Grid>
+
+        <!-- ANA İÇERİK: 3 satır (üst bar / filtreler / ürünler) -->
+        <Grid RowDefinitions="Auto, Auto, *">
+
+            <!-- ÜST BAR -->
+            <Grid Grid.Row="0"
+                  ColumnDefinitions="Auto, *, Auto"
+                  Padding="12,10"
+                  BackgroundColor="White">
+
+                <!-- Geri butonu -->
+                <Label Grid.Column="0"
+                       Text="{x:Static helpers:IconFont.ArrowBack}"
+                       FontFamily="MaterialSymbols"
+                       FontSize="26"
+                       VerticalOptions="Center" />
+
+                <!-- Başlık + ürün sayısı -->
+                <VerticalStackLayout Grid.Column="1"
+                                     Spacing="0"
+                                     Margin="8,0,0,0"
+                                     VerticalOptions="Center">
+                    <Label Text="Meyve &amp; Sebze"
+                           FontFamily="InterBold"
+                           FontSize="20"
+                           TextColor="#121C2A" />
+                    <Label Text="124 ürün"
+                           FontFamily="Inter"
+                           FontSize="13"
+                           TextColor="#3C4A42" />
+                </VerticalStackLayout>
+
+                <!-- Arama ikonu -->
+                <Label Grid.Column="2"
+                       Text="{x:Static helpers:IconFont.Search}"
+                       FontFamily="MaterialSymbols"
+                       FontSize="26"
+                       VerticalOptions="Center" />
+            </Grid>
+
+            <!-- FİLTRE BUTONLARI (yatay kaydırma) -->
+            <ScrollView Grid.Row="1"
+                        Orientation="Horizontal"
+                        Padding="12,8"
+                        BackgroundColor="White">
+                <HorizontalStackLayout Spacing="8">
+                    <Button Text="Tümü"
+                            BackgroundColor="#006C49" TextColor="White"
+                            CornerRadius="20" HeightRequest="38" Padding="16,0" />
+                    <Button Text="Meyveler"
+                            BackgroundColor="#EFF4FF" TextColor="#121C2A"
+                            CornerRadius="20" HeightRequest="38" Padding="16,0" />
+                    <Button Text="Sebzeler"
+                            BackgroundColor="#EFF4FF" TextColor="#121C2A"
+                            CornerRadius="20" HeightRequest="38" Padding="16,0" />
+                    <Button Text="İndirimdekiler"
+                            BackgroundColor="#EFF4FF" TextColor="#BA1A1A"
+                            CornerRadius="20" HeightRequest="38" Padding="16,0" />
+                </HorizontalStackLayout>
+            </ScrollView>
+
+            <!-- ÜRÜN KARTLARI (dikey kaydırma, 2 sütun) -->
+            <ScrollView Grid.Row="2" Padding="12">
+                <Grid ColumnDefinitions="*, *"
+                      RowDefinitions="Auto, Auto"
+                      ColumnSpacing="12"
+                      RowSpacing="16"
+                      Margin="0,0,0,180">
+
+                    <!-- Ürün 1: Domates -->
+                    <Border Grid.Row="0" Grid.Column="0"
+                            BackgroundColor="White"
+                            StrokeShape="RoundRectangle 24"
+                            Stroke="Transparent"
+                            Padding="0">
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="🍅" FontSize="60" HorizontalOptions="Center" Margin="0,16" />
+                            <VerticalStackLayout Padding="12" Spacing="2">
+                                <Label Text="Domates Salkım" FontFamily="Inter" FontSize="14" TextColor="#121C2A" />
+                                <Label Text="1 kg" FontFamily="Inter" FontSize="12" TextColor="#3C4A42" />
+                                <Grid ColumnDefinitions="*, Auto" Margin="0,8,0,0" VerticalOptions="Center">
+                                    <Label Grid.Column="0"
+                                           Text="54,90 TL"
+                                           FontFamily="InterBold" FontSize="18" TextColor="#006C49"
+                                           VerticalOptions="Center" />
+                                    <Label Grid.Column="1"
+                                           Text="{x:Static helpers:IconFont.Add}"
+                                           FontFamily="MaterialSymbols" FontSize="22"
+                                           TextColor="#006C49" />
+                                </Grid>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Ürün 2: Muz -->
+                    <Border Grid.Row="0" Grid.Column="1"
+                            BackgroundColor="White"
+                            StrokeShape="RoundRectangle 24"
+                            Stroke="Transparent"
+                            Padding="0">
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="🍌" FontSize="60" HorizontalOptions="Center" Margin="0,16" />
+                            <VerticalStackLayout Padding="12" Spacing="2">
+                                <Label Text="Muz Yerli" FontFamily="Inter" FontSize="14" TextColor="#121C2A" />
+                                <Label Text="1 kg" FontFamily="Inter" FontSize="12" TextColor="#3C4A42" />
+                                <Grid ColumnDefinitions="*, Auto" Margin="0,8,0,0" VerticalOptions="Center">
+                                    <Label Grid.Column="0"
+                                           Text="69,90 TL"
+                                           FontFamily="InterBold" FontSize="18" TextColor="#006C49"
+                                           VerticalOptions="Center" />
+                                    <Label Grid.Column="1"
+                                           Text="{x:Static helpers:IconFont.Add}"
+                                           FontFamily="MaterialSymbols" FontSize="22"
+                                           TextColor="#006C49" />
+                                </Grid>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Ürün 3: Avokado -->
+                    <Border Grid.Row="1" Grid.Column="0"
+                            BackgroundColor="White"
+                            StrokeShape="RoundRectangle 24"
+                            Stroke="Transparent"
+                            Padding="0">
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="🥑" FontSize="60" HorizontalOptions="Center" Margin="0,16" />
+                            <VerticalStackLayout Padding="12" Spacing="2">
+                                <Label Text="Hass Avokado" FontFamily="Inter" FontSize="14" TextColor="#121C2A" />
+                                <Label Text="Adet" FontFamily="Inter" FontSize="12" TextColor="#3C4A42" />
+                                <Grid ColumnDefinitions="*, Auto" Margin="0,8,0,0" VerticalOptions="Center">
+                                    <Label Grid.Column="0"
+                                           Text="44,90 TL"
+                                           FontFamily="InterBold" FontSize="18" TextColor="#006C49"
+                                           VerticalOptions="Center" />
+                                    <Label Grid.Column="1"
+                                           Text="{x:Static helpers:IconFont.Add}"
+                                           FontFamily="MaterialSymbols" FontSize="22"
+                                           TextColor="#006C49" />
+                                </Grid>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Ürün 4: Çilek -->
+                    <Border Grid.Row="1" Grid.Column="1"
+                            BackgroundColor="White"
+                            StrokeShape="RoundRectangle 24"
+                            Stroke="Transparent"
+                            Padding="0">
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="🍓" FontSize="60" HorizontalOptions="Center" Margin="0,16" />
+                            <VerticalStackLayout Padding="12" Spacing="2">
+                                <Label Text="Taze Çilek Paketi" FontFamily="Inter" FontSize="14" TextColor="#121C2A" />
+                                <Label Text="400 g" FontFamily="Inter" FontSize="12" TextColor="#3C4A42" />
+                                <Grid ColumnDefinitions="*, Auto" Margin="0,8,0,0" VerticalOptions="Center">
+                                    <Label Grid.Column="0"
+                                           Text="72,90 TL"
+                                           FontFamily="InterBold" FontSize="18" TextColor="#BA1A1A"
+                                           VerticalOptions="Center" />
+                                    <Label Grid.Column="1"
+                                           Text="{x:Static helpers:IconFont.Add}"
+                                           FontFamily="MaterialSymbols" FontSize="22"
+                                           TextColor="#006C49" />
+                                </Grid>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+
+                </Grid>
+            </ScrollView>
+
+        </Grid>
+
+        <!-- YÜZEN SEPET ÖZETİ (içeriğin üstünde, alta yakın) -->
+        <Border VerticalOptions="End"
+                Margin="16,0,16,96"
+                BackgroundColor="#006C49"
+                StrokeShape="RoundRectangle 30"
+                Stroke="Transparent"
+                Padding="20,10">
+            <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+                <VerticalStackLayout Grid.Column="0" Spacing="0" VerticalOptions="Center">
+                    <Label Text="SEPETİM (3 ÜRÜN)" FontFamily="Inter" FontSize="11" TextColor="White" />
+                    <Label Text="184,70 TL" FontFamily="InterBold" FontSize="18" TextColor="White" />
+                </VerticalStackLayout>
+                <Button Grid.Column="1"
+                        Text="Sepete Git"
+                        BackgroundColor="White" TextColor="#006C49"
+                        FontFamily="InterBold"
+                        CornerRadius="24" HeightRequest="48" Padding="20,0" />
+            </Grid>
+        </Border>
+
+        <!-- ALT NAVİGASYON (en altta sabit) -->
+        <Border VerticalOptions="End"
+                BackgroundColor="White"
+                Stroke="Transparent"
+                Padding="0,8"
+                HeightRequest="80">
+            <Grid ColumnDefinitions="*, *, *, *" VerticalOptions="Center">
+                <VerticalStackLayout Grid.Column="0" Spacing="2" HorizontalOptions="Center">
+                    <Label Text="{x:Static helpers:IconFont.Home}" FontFamily="MaterialSymbols" FontSize="24" TextColor="#3C4A42" HorizontalOptions="Center" />
+                    <Label Text="Ana Sayfa" FontFamily="Inter" FontSize="10" TextColor="#3C4A42" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1" Spacing="2" HorizontalOptions="Center">
+                    <Label Text="{x:Static helpers:IconFont.GridView}" FontFamily="MaterialSymbols" FontSize="24" TextColor="#006C49" HorizontalOptions="Center" />
+                    <Label Text="Kategoriler" FontFamily="InterBold" FontSize="10" TextColor="#006C49" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="2" Spacing="2" HorizontalOptions="Center">
+                    <Label Text="{x:Static helpers:IconFont.ShoppingCart}" FontFamily="MaterialSymbols" FontSize="24" TextColor="#3C4A42" HorizontalOptions="Center" />
+                    <Label Text="Sepet" FontFamily="Inter" FontSize="10" TextColor="#3C4A42" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="3" Spacing="2" HorizontalOptions="Center">
+                    <Label Text="{x:Static helpers:IconFont.Person}" FontFamily="MaterialSymbols" FontSize="24" TextColor="#3C4A42" HorizontalOptions="Center" />
+                    <Label Text="Profil" FontFamily="Inter" FontSize="10" TextColor="#3C4A42" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Grid>
+        </Border>
+
+    </Grid>
+
+</ContentPage>
+
