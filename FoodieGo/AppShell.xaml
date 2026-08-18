@@ -7,9 +7,9 @@
     Title="FoodieGo">
 
      <ShellContent
-     Title="Ürün Listesi"
-     ContentTemplate="{DataTemplate local:ProductListPage}"
-     Route="ProductList" />
+     Title="Ana Sayfa"
+     ContentTemplate="{DataTemplate local:DiscountsPage}"
+     Route="DiscountsPage" />
 
 
 
