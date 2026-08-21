@@ -9,5 +9,4 @@
      Title="Ana Sayfa"
      ContentTemplate="{DataTemplate local:SpinWheelPage}"
      Route="SpinWheelPage" />
-
 </Shell>
