@@ -5,8 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:FoodieGo.Pages"
     Title="FoodieGo">
-
-     <ShellContent
+    <ShellContent
      Title="Ana Sayfa"
      ContentTemplate="{DataTemplate local:SpinWheelPage}"
      Route="SpinWheelPage" />
