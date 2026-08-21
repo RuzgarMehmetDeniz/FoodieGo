@@ -8,8 +8,8 @@
 
      <ShellContent
      Title="Ana Sayfa"
-     ContentTemplate="{DataTemplate local:DiscountsPage}"
-     Route="DiscountsPage" />
+     ContentTemplate="{DataTemplate local:SpinWheelPage}"
+     Route="SpinWheelPage" />
 
 
 

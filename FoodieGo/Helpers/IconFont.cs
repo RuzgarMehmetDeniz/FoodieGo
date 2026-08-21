@@ -27,5 +27,17 @@ namespace FoodieGo.Helpers
         public const string ShoppingBasket = "\ue8cb";  // sepet (dolu)
 
         public const string LocalShipping = "\ue558";
+
+        public const string Receipt = "\ue8b0";  // siparişlerim
+        public const string LocationCity = "\ue7f1";  // adreslerim
+        public const string CreditCard = "\ue870";  // ödeme
+        public const string Favorite = "\ue87d";  // favoriler
+        public const string Settings = "\ue8b8";  // ayarlar
+        public const string Help = "\ue887";  // yardım
+        public const string Logout = "\ue9ba";  // çıkış
+        public const string ChevronRight = "\ue5cc";  // sağ ok (>)
+
+
+
     }
 }
