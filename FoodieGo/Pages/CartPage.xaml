@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:FoodieGo.Helpers"
+             x:Class="FoodieGo.Pages.CartPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#F8F9FF"
+             Title="Sepetim">
+
+    <Grid RowDefinitions="Auto, *, Auto">
+
+        <!-- BAŞLIK -->
+        <Label Grid.Row="0"
+               Text="Sepetim"
+               FontFamily="InterBold"
+               FontSize="28"
+               TextColor="#121C2A"
+               Margin="16,16,16,8" />
+
+        <!-- SEPET LİSTESİ -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout x:Name="CartContainer"
+                                 Spacing="12"
+                                 Padding="16,0,16,16"
+                                 BindableLayout.ItemsSource="{Binding .}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+
+                        <!-- BİR SEPET SATIRI -->
+                        <Border BackgroundColor="White"
+                                StrokeShape="RoundRectangle 16"
+                                Stroke="Transparent"
+                                Padding="12">
+                            <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
+
+                                <!-- Görsel -->
+                                <Image Grid.Column="0"
+                                       Source="{Binding Image}"
+                                       Aspect="AspectFill"
+                                       WidthRequest="60"
+                                       HeightRequest="60" />
+
+                                <!-- Ad + birim fiyat -->
+                                <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                    <Label Text="{Binding Name}" FontFamily="InterBold" FontSize="15" TextColor="#121C2A" />
+                                    <Label Text="{Binding Price, StringFormat='{0:0.00} TL'}" FontFamily="Inter" FontSize="13" TextColor="#3C4A42" />
+                                    <Label Text="{Binding Quantity, StringFormat='Adet: {0}'}" FontFamily="Inter" FontSize="13" TextColor="#3C4A42" />
+                                </VerticalStackLayout>
+
+                                <!-- Satır toplamı -->
+                                <Label Grid.Column="2"
+                                       Text="{Binding LineTotal, StringFormat='{0:0.00} TL'}"
+                                       FontFamily="InterBold" FontSize="15" TextColor="#006C49"
+                                       VerticalOptions="Center" />
+
+                            </Grid>
+                        </Border>
+
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- ALT NAVİGASYON -->
+        <Border Grid.Row="2" BackgroundColor="White" Stroke="Transparent" Padding="0,8" HeightRequest="80">
+            <Grid ColumnDefinitions="*, *, *, *" VerticalOptions="Center">
+                <VerticalStackLayout Grid.Column="0" Spacing="2" HorizontalOptions="Center">
+                    <Label Text="{x:Static helpers:IconFont.Home}" FontFamily="MaterialSymbols" FontSize="24" TextColor="#3C4A42" HorizontalOptions="Center" />
+                    <Label Text="Ana Sayfa" FontFamily="Inter" FontSize="10" TextColor="#3C4A42" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1" Spacing="2" HorizontalOptions="Center">
+                    <Label Text="{x:Static helpers:IconFont.GridView}" FontFamily="MaterialSymbols" FontSize="24" TextColor="#3C4A42" HorizontalOptions="Center" />
+                    <Label Text="Kategoriler" FontFamily="Inter" FontSize="10" TextColor="#3C4A42" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="2" Spacing="2" HorizontalOptions="Center">
+                    <Label Text="{x:Static helpers:IconFont.ShoppingCart}" FontFamily="MaterialSymbols" FontSize="24" TextColor="#006C49" HorizontalOptions="Center" />
+                    <Label Text="Sepet" FontFamily="InterBold" FontSize="10" TextColor="#006C49" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="3" Spacing="2" HorizontalOptions="Center">
+                    <Label Text="{x:Static helpers:IconFont.Person}" FontFamily="MaterialSymbols" FontSize="24" TextColor="#3C4A42" HorizontalOptions="Center" />
+                    <Label Text="Profil" FontFamily="Inter" FontSize="10" TextColor="#3C4A42" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Grid>
+        </Border>
+
+    </Grid>
+
+</ContentPage>
