@@ -3,10 +3,33 @@
     x:Class="FoodieGo.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:FoodieGo.Pages"
+    xmlns:pages="clr-namespace:FoodieGo.Pages"
     Title="FoodieGo">
-    <ShellContent
-     Title="Ana Sayfa"
-     ContentTemplate="{DataTemplate local:SpinWheelPage}"
-     Route="SpinWheelPage" />
+
+    <TabBar>
+        <ShellContent
+            Title="Ana Sayfa"
+            Icon="home.png"
+            ContentTemplate="{DataTemplate pages:HomePage}"
+            Route="HomePage" />
+
+        <ShellContent
+            Title="Kategoriler"
+            Icon="grid.png"
+            ContentTemplate="{DataTemplate pages:CategoriesPage}"
+            Route="CategoriesPage" />
+
+        <ShellContent
+            Title="Sepet"
+            Icon="cart.png"
+            ContentTemplate="{DataTemplate pages:CartPage}"
+            Route="CartPage" />
+
+        <ShellContent
+            Title="Profil"
+            Icon="person.png"
+            ContentTemplate="{DataTemplate pages:ProfilePage}"
+            Route="ProfilePage" />
+    </TabBar>
+
 </Shell>
