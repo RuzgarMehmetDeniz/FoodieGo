@@ -1,8 +1,8 @@
-using System.Collections.ObjectModel;
+using FoodieGo.Models;
+using FoodieGo.Services;
 
 namespace FoodieGo.Pages
 {
-    // Geçici görüntüleme sýnýfý - DB baðlanýnca Models/Discount kullanýlacak
     public class DiscountDisplayItem
     {
         public int Percentage { get; set; }
@@ -14,42 +14,46 @@ namespace FoodieGo.Pages
 
     public partial class DiscountsPage : ContentPage
     {
+        private readonly DatabaseService _databaseService;
+
         public DiscountsPage()
         {
             InitializeComponent();
+            _databaseService = new DatabaseService();
+        }
 
-            DiscountsList.ItemsSource = new ObservableCollection<DiscountDisplayItem>
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await LoadDiscountsAsync();
+        }
+
+        private async Task LoadDiscountsAsync()
+        {
+            try
             {
-                new()
+                List<Discount> discounts = await _databaseService.GetDiscountsAsync();
+
+                List<DiscountDisplayItem> items = discounts.Select(d => new DiscountDisplayItem
                 {
-                    Percentage = 30,
-                    Title = "Haftanýn Fýrsatlarý",
-                    Description = "Seçili ürünlerde geçerli süper indirim",
-                    EndDate = "30 Aðustos",
-                    BackgroundColor = (Color)Application.Current.Resources["Primary"]
-                },
-                new()
-                {
-                    Percentage = 15,
-                    Title = "Meyve & Sebzede Ýndirim",
-                    Description = "Taze ürünlerde kaçýrýlmayacak fýrsat",
-                    EndDate = "2 Eylül",
-                    BackgroundColor = (Color)Application.Current.Resources["SecondaryDarkText"]
-                },
-                new()
-                {
-                    Percentage = 20,
-                    Title = "Ýlk Sipariþe Özel",
-                    Description = "Yeni üyelere özel indirim kodu",
-                    EndDate = "10 Eylül",
-                    BackgroundColor = (Color)Application.Current.Resources["DiscountRed"]
-                },
-            };
+                    Percentage = d.Percentage,
+                    Title = d.Title,
+                    Description = d.Description,
+                    EndDate = d.EndDate,
+                    BackgroundColor = Color.FromArgb(d.Color)
+                }).ToList();
+
+                DiscountsList.ItemsSource = items;
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Hata", $"Ýndirimler yüklenirken hata oluþtu:\n{ex.Message}", "Tamam");
+            }
         }
 
         private async void OnBackTapped(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("..");
+            await Navigation.PopAsync();
         }
     }
 }

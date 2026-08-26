@@ -4,7 +4,8 @@
              xmlns:helpers="clr-namespace:FoodieGo.Helpers"
              x:Class="FoodieGo.Pages.ProfilePage"
              BackgroundColor="{StaticResource Background}"
-             Title="Profil">
+             Title="Profil"
+             Shell.NavBarIsVisible="False">
 
     <ScrollView>
         <VerticalStackLayout Padding="16" Spacing="16">

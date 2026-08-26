@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
-
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:helpers="clr-namespace:FoodieGo.Helpers"
     x:Class="FoodieGo.Pages.HomePage"
     BackgroundColor="{StaticResource Background}"
-    Title="Ana Sayfa">
+    Title="Ana Sayfa"
+    Shell.NavBarIsVisible="False">
 
     <ScrollView>
-
-        <VerticalStackLayout
-            Padding="16,16,16,24"
-            Spacing="18">
+        <VerticalStackLayout Padding="16,16,16,24" Spacing="18">
 
             <!-- ÜST BİLGİ SATIRI -->
-            <Grid
-                ColumnDefinitions="Auto,*,Auto"
-                ColumnSpacing="8">
-
+            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
                 <Label
                     Grid.Column="0"
                     Text="{x:Static helpers:IconFont.LocationOn}"
@@ -29,7 +23,7 @@
 
                 <Label
                     Grid.Column="1"
-                    Text="Ev • Kurtköy, İstanbul"
+                    Text="Ev - Kurtköy, İstanbul"
                     FontFamily="OpenSansSemibold"
                     FontSize="15"
                     TextColor="{StaticResource TextPrimary}"
@@ -42,9 +36,7 @@
                     FontSize="22"
                     TextColor="{StaticResource TextPrimary}"
                     VerticalOptions="Center" />
-
             </Grid>
-
 
             <!-- ARAMA ÇUBUĞU -->
             <Border
@@ -54,10 +46,7 @@
                 Padding="16,0"
                 HeightRequest="48">
 
-                <Grid
-                    ColumnDefinitions="Auto,*"
-                    ColumnSpacing="10">
-
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
                     <Label
                         Grid.Column="0"
                         Text="{x:Static helpers:IconFont.Search}"
@@ -73,17 +62,11 @@
                         TextColor="{StaticResource TextPrimary}"
                         BackgroundColor="Transparent"
                         VerticalOptions="Center" />
-
                 </Grid>
-
             </Border>
 
-
             <!-- KAMPANYA BANNERLARI -->
-            <ScrollView
-                Orientation="Horizontal"
-                HorizontalScrollBarVisibility="Never">
-
+            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
                 <HorizontalStackLayout Spacing="12">
 
                     <!-- İNDİRİM BANNER -->
@@ -95,14 +78,10 @@
                         Padding="16">
 
                         <Border.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Tapped="OnDiscountsBannerTapped" />
+                            <TapGestureRecognizer Tapped="OnDiscountsBannerTapped" />
                         </Border.GestureRecognizers>
 
-                        <VerticalStackLayout
-                            VerticalOptions="Center"
-                            Spacing="8">
-
+                        <VerticalStackLayout VerticalOptions="Center" Spacing="8">
                             <Border
                                 StrokeShape="RoundRectangle 20"
                                 BackgroundColor="{StaticResource DiscountRed}"
@@ -114,7 +93,6 @@
                                     TextColor="White"
                                     FontSize="12"
                                     FontFamily="OpenSansSemibold" />
-
                             </Border>
 
                             <Label
@@ -122,11 +100,8 @@
                                 TextColor="White"
                                 FontSize="19"
                                 FontFamily="OpenSansSemibold" />
-
                         </VerticalStackLayout>
-
                     </Border>
-
 
                     <!-- MEYVE SEBZE BANNER -->
                     <Border
@@ -136,10 +111,11 @@
                         HeightRequest="130"
                         Padding="16">
 
-                        <VerticalStackLayout
-                            VerticalOptions="Center"
-                            Spacing="8">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAllProductsTapped" />
+                        </Border.GestureRecognizers>
 
+                        <VerticalStackLayout VerticalOptions="Center" Spacing="8">
                             <Border
                                 StrokeShape="RoundRectangle 20"
                                 BackgroundColor="{StaticResource CardBackground}"
@@ -151,7 +127,6 @@
                                     TextColor="{StaticResource SecondaryDarkText}"
                                     FontSize="12"
                                     FontFamily="OpenSansSemibold" />
-
                             </Border>
 
                             <Label
@@ -159,59 +134,33 @@
                                 TextColor="White"
                                 FontSize="18"
                                 FontFamily="OpenSansSemibold" />
-
                         </VerticalStackLayout>
-
                     </Border>
 
                 </HorizontalStackLayout>
-
             </ScrollView>
 
-
-            <!-- KATEGORİLER BAŞLIĞI -->
-            <Grid
-                ColumnDefinitions="*,Auto">
-
+            <!-- KATEGORİLER BAŞLIĞI VE TÜMÜNÜ GÖR -->
+            <Grid ColumnDefinitions="*,Auto">
                 <Label
                     Grid.Column="0"
                     Text="Kategoriler"
                     FontFamily="OpenSansSemibold"
                     FontSize="18"
-                    TextColor="{StaticResource TextPrimary}" />
-
-                <!-- TÜM ÜRÜNLER -->
-                <Label
-                    Grid.Column="1"
-                    Text="Tümünü Gör"
-                    FontSize="14"
-                    TextColor="{StaticResource Primary}"
-                    VerticalOptions="Center">
-
-                    <Label.GestureRecognizers>
-
-                        <TapGestureRecognizer
-                            Tapped="OnAllProductsTapped" />
-
-                    </Label.GestureRecognizers>
-
-                </Label>
+                    TextColor="{StaticResource TextPrimary}"
+                    VerticalOptions="Center" />
 
             </Grid>
 
-
             <!-- KATEGORİ KISAYOLLARI -->
-            <ScrollView
-                Orientation="Horizontal"
-                HorizontalScrollBarVisibility="Never">
-
+            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
                 <HorizontalStackLayout Spacing="18">
 
                     <!-- MEYVE & SEBZE -->
-                    <VerticalStackLayout
-                        Spacing="6"
-                        HorizontalOptions="Center"
-                        WidthRequest="70">
+                    <VerticalStackLayout Spacing="6" HorizontalOptions="Center" WidthRequest="70">
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAllProductsTapped" />
+                        </VerticalStackLayout.GestureRecognizers>
 
                         <Border
                             StrokeShape="RoundRectangle 32"
@@ -224,23 +173,20 @@
                                 FontSize="28"
                                 HorizontalOptions="Center"
                                 VerticalOptions="Center" />
-
                         </Border>
 
                         <Label
-                            Text="Meyve&amp;Sebze"
+                            Text="Meyve &amp; Sebze"
                             FontSize="12"
                             HorizontalTextAlignment="Center"
                             TextColor="{StaticResource TextPrimary}" />
-
                     </VerticalStackLayout>
 
-
                     <!-- SÜT ÜRÜNLERİ -->
-                    <VerticalStackLayout
-                        Spacing="6"
-                        HorizontalOptions="Center"
-                        WidthRequest="70">
+                    <VerticalStackLayout Spacing="6" HorizontalOptions="Center" WidthRequest="70">
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAllProductsTapped" />
+                        </VerticalStackLayout.GestureRecognizers>
 
                         <Border
                             StrokeShape="RoundRectangle 32"
@@ -253,7 +199,6 @@
                                 FontSize="28"
                                 HorizontalOptions="Center"
                                 VerticalOptions="Center" />
-
                         </Border>
 
                         <Label
@@ -261,15 +206,13 @@
                             FontSize="12"
                             HorizontalTextAlignment="Center"
                             TextColor="{StaticResource TextPrimary}" />
-
                     </VerticalStackLayout>
 
-
                     <!-- FIRIN -->
-                    <VerticalStackLayout
-                        Spacing="6"
-                        HorizontalOptions="Center"
-                        WidthRequest="70">
+                    <VerticalStackLayout Spacing="6" HorizontalOptions="Center" WidthRequest="70">
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAllProductsTapped" />
+                        </VerticalStackLayout.GestureRecognizers>
 
                         <Border
                             StrokeShape="RoundRectangle 32"
@@ -282,7 +225,6 @@
                                 FontSize="28"
                                 HorizontalOptions="Center"
                                 VerticalOptions="Center" />
-
                         </Border>
 
                         <Label
@@ -290,15 +232,13 @@
                             FontSize="12"
                             HorizontalTextAlignment="Center"
                             TextColor="{StaticResource TextPrimary}" />
-
                     </VerticalStackLayout>
 
-
                     <!-- İÇECEK -->
-                    <VerticalStackLayout
-                        Spacing="6"
-                        HorizontalOptions="Center"
-                        WidthRequest="70">
+                    <VerticalStackLayout Spacing="6" HorizontalOptions="Center" WidthRequest="70">
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAllProductsTapped" />
+                        </VerticalStackLayout.GestureRecognizers>
 
                         <Border
                             StrokeShape="RoundRectangle 32"
@@ -311,7 +251,6 @@
                                 FontSize="28"
                                 HorizontalOptions="Center"
                                 VerticalOptions="Center" />
-
                         </Border>
 
                         <Label
@@ -319,15 +258,12 @@
                             FontSize="12"
                             HorizontalTextAlignment="Center"
                             TextColor="{StaticResource TextPrimary}" />
-
                     </VerticalStackLayout>
 
                 </HorizontalStackLayout>
-
             </ScrollView>
 
         </VerticalStackLayout>
-
     </ScrollView>
 
 </ContentPage>

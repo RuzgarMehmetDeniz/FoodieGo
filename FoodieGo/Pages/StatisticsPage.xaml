@@ -4,7 +4,8 @@
              xmlns:helpers="clr-namespace:FoodieGo.Helpers"
              x:Class="FoodieGo.Pages.StatisticsPage"
              BackgroundColor="{StaticResource Background}"
-             Title="İstatistikler">
+             Title="İstatistikler"
+             Shell.NavBarIsVisible="False">
 
     <ScrollView>
         <VerticalStackLayout Padding="16,16,16,24" Spacing="20">

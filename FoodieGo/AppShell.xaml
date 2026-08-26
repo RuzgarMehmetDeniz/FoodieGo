@@ -12,7 +12,7 @@
     Shell.TabBarForegroundColor="{StaticResource White}"
     Shell.TabBarTitleColor="{StaticResource White}"
     Shell.TabBarUnselectedColor="#B9D9C7"
-    Shell.NavBarIsVisible="False"
+    Shell.NavBarIsVisible="True"
     Shell.NavBarHasShadow="False">
     <TabBar>
         <ShellContent
@@ -23,7 +23,6 @@
                 <FontImageSource FontFamily="MaterialSymbols" Glyph="{x:Static helpers:IconFont.Home}" Size="22" Color="White" />
             </ShellContent.Icon>
         </ShellContent>
-
         <ShellContent
             Title="Kategoriler"
             ContentTemplate="{DataTemplate pages:CategoriesPage}"
@@ -32,7 +31,14 @@
                 <FontImageSource FontFamily="MaterialSymbols" Glyph="{x:Static helpers:IconFont.GridView}" Size="22" Color="White" />
             </ShellContent.Icon>
         </ShellContent>
-
+        <ShellContent
+            Title="Urunler"
+            ContentTemplate="{DataTemplate pages:ProductsPage}"
+            Route="ProductsPage">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="MaterialSymbols" Glyph="{x:Static helpers:IconFont.GridView}" Size="22" Color="White" />
+            </ShellContent.Icon>
+        </ShellContent>
         <ShellContent
             Title="Sepet"
             ContentTemplate="{DataTemplate pages:CartPage}"
@@ -41,7 +47,6 @@
                 <FontImageSource FontFamily="MaterialSymbols" Glyph="{x:Static helpers:IconFont.ShoppingCart}" Size="22" Color="White" />
             </ShellContent.Icon>
         </ShellContent>
-
         <ShellContent
             Title="Profil"
             ContentTemplate="{DataTemplate pages:ProfilePage}"
@@ -51,5 +56,4 @@
             </ShellContent.Icon>
         </ShellContent>
     </TabBar>
-
 </Shell>

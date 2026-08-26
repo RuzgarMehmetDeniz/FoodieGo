@@ -1,38 +1,94 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:helpers="clr-namespace:FoodieGo.Helpers"
-             x:Class="FoodieGo.Pages.CategoriesPage"
-             BackgroundColor="{StaticResource Background}"
-             Title="Kategoriler">
 
-    <Grid RowDefinitions="Auto,*" Padding="16,16,16,0">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:helpers="clr-namespace:FoodieGo.Helpers"
+    x:Class="FoodieGo.Pages.CategoriesPage"
+    BackgroundColor="{StaticResource Background}"
+    Title="Kategoriler"
+    Shell.NavBarIsVisible="False">
 
-        <Label Grid.Row="0" Text="Kategoriler" FontFamily="OpenSansSemibold" FontSize="22"
-               TextColor="{StaticResource TextPrimary}" Margin="0,0,0,12" />
+    <Grid
+        RowDefinitions="Auto,*"
+        Padding="16,16,16,0">
 
-        <CollectionView Grid.Row="1" x:Name="CategoriesList">
+        <!-- BAŞLIK -->
+        <Label
+            Grid.Row="0"
+            Text="Kategoriler"
+            FontFamily="OpenSansSemibold"
+            FontSize="22"
+            TextColor="{StaticResource TextPrimary}"
+            Margin="0,0,0,12" />
+
+        <!-- KATEGORİLER -->
+        <CollectionView
+            Grid.Row="1"
+            x:Name="CategoriesList"
+            SelectionMode="Single"
+            SelectionChanged="CategoriesList_SelectionChanged">
+
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                <LinearItemsLayout
+                    Orientation="Vertical"
+                    ItemSpacing="10" />
             </CollectionView.ItemsLayout>
+
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Border StrokeShape="RoundRectangle 16"
-                            BackgroundColor="{StaticResource CardBackground}"
-                            Stroke="{StaticResource Divider}"
-                            Padding="14">
-                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
-                            <Border Grid.Column="0" StrokeShape="RoundRectangle 24" BackgroundColor="{StaticResource Secondary}" WidthRequest="48" HeightRequest="48">
-                                <Label Text="{Binding Emoji}" FontSize="22" HorizontalOptions="Center" VerticalOptions="Center" />
+
+                    <Border
+                        StrokeShape="RoundRectangle 16"
+                        BackgroundColor="{StaticResource CardBackground}"
+                        Stroke="{StaticResource Divider}"
+                        Padding="14">
+
+                        <Grid
+                            ColumnDefinitions="Auto,*,Auto"
+                            ColumnSpacing="14">
+
+                            <!-- ICON -->
+                            <Border
+                                Grid.Column="0"
+                                StrokeShape="RoundRectangle 24"
+                                BackgroundColor="{StaticResource Secondary}"
+                                WidthRequest="48"
+                                HeightRequest="48">
+
+                                <Label
+                                    Text="{Binding Emoji}"
+                                    FontSize="22"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+
                             </Border>
-                            <Label Grid.Column="1" Text="{Binding Name}" FontFamily="OpenSansSemibold" FontSize="16"
-                                   TextColor="{StaticResource TextPrimary}" VerticalOptions="Center" />
-                            <Label Grid.Column="2" Text="{x:Static helpers:IconFont.ChevronRight}" FontFamily="MaterialSymbols"
-                                   FontSize="20" TextColor="{StaticResource TextSecondary}" VerticalOptions="Center" />
+
+                            <!-- KATEGORİ ADI -->
+                            <Label
+                                Grid.Column="1"
+                                Text="{Binding Name}"
+                                FontFamily="OpenSansSemibold"
+                                FontSize="16"
+                                TextColor="{StaticResource TextPrimary}"
+                                VerticalOptions="Center" />
+
+                            <!-- SAĞ OK -->
+                            <Label
+                                Grid.Column="2"
+                                Text="{x:Static helpers:IconFont.ChevronRight}"
+                                FontFamily="MaterialSymbols"
+                                FontSize="20"
+                                TextColor="{StaticResource TextSecondary}"
+                                VerticalOptions="Center" />
+
                         </Grid>
+
                     </Border>
+
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+
         </CollectionView>
 
     </Grid>

@@ -4,6 +4,7 @@
              xmlns:helpers="clr-namespace:FoodieGo.Helpers"
              x:Class="FoodieGo.Pages.DiscountsPage"
              BackgroundColor="{StaticResource Background}"
+              Shell.NavBarIsVisible="False"
              Title="İndirimler">
 
     <Grid RowDefinitions="Auto,*" Padding="16,16,16,0">

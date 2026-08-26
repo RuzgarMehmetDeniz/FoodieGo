@@ -1,146 +1,114 @@
 <?xml version="1.0" encoding="utf-8" ?>
-
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:helpers="clr-namespace:FoodieGo.Helpers"
     x:Class="FoodieGo.Pages.ProductsPage"
     BackgroundColor="{StaticResource Background}"
-    Title="Ürünler">
+    Shell.NavBarIsVisible="False"
+    Title="">
 
-    <Grid
-        RowDefinitions="Auto,*"
-        Padding="16,16,16,0">
+    <Grid RowDefinitions="Auto,*">
 
-        <!-- BAŞLIK -->
-        <Grid
-            Grid.Row="0"
-            ColumnDefinitions="*,Auto"
-            Margin="0,0,0,12">
+        <!-- ÜST BAŞLIK BAR -->
+        <Border Grid.Row="0" 
+                Padding="16" 
+                BackgroundColor="{StaticResource CardBackground}" 
+                StrokeThickness="0">
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Grid.Column="0" 
+                       Text="Ürün Kataloğu" 
+                       FontFamily="OpenSansSemibold" 
+                       FontSize="18" 
+                       TextColor="{StaticResource TextPrimary}"
+                       VerticalOptions="Center" />
 
-            <Label
-                Grid.Column="0"
-                Text="Ürünler"
-                FontFamily="OpenSansSemibold"
-                FontSize="22"
-                TextColor="{StaticResource TextPrimary}" />
+                <Label x:Name="ProductCountLabel"
+                       Grid.Column="1"
+                       Text="0 Ürün"
+                       FontSize="13"
+                       FontFamily="OpenSansSemibold"
+                       TextColor="{StaticResource TextSecondary}"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Border>
 
-            <Label
-                Grid.Column="1"
-                x:Name="ProductCountLabel"
-                FontSize="14"
-                TextColor="{StaticResource TextSecondary}"
-                VerticalOptions="Center" />
-
-        </Grid>
-
-        <!-- ÜRÜN LİSTESİ -->
-        <CollectionView
-            Grid.Row="1"
-            x:Name="ProductsList"
-            SelectionMode="None">
+        <!-- DİNAMİK ÜRÜN LİSTESİ -->
+        <CollectionView x:Name="ProductsList" 
+                        Grid.Row="1">
 
             <CollectionView.ItemsLayout>
-
-                <GridItemsLayout
-                    Orientation="Vertical"
-                    Span="2"
-                    HorizontalItemSpacing="12"
-                    VerticalItemSpacing="12" />
-
+                <GridItemsLayout Orientation="Vertical" 
+                                 Span="2" 
+                                 HorizontalItemSpacing="12" 
+                                 VerticalItemSpacing="12" />
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
-
                 <DataTemplate>
+                    <Grid Padding="6">
+                        <Border StrokeShape="RoundRectangle 16" 
+                                BackgroundColor="{StaticResource CardBackground}" 
+                                Stroke="{StaticResource Divider}"
+                                Padding="12">
 
-                    <Border
-                        StrokeShape="RoundRectangle 16"
-                        BackgroundColor="{StaticResource CardBackground}"
-                        Stroke="{StaticResource Divider}"
-                        Padding="12">
-
-                        <VerticalStackLayout Spacing="6">
-
-                            <!-- ÜRÜN GÖRSELİ -->
-                            <Border
-                                StrokeShape="RoundRectangle 12"
-                                BackgroundColor="{StaticResource Secondary}"
-                                HeightRequest="110">
-
-                                <Image
-                                    Source="{Binding Image}"
-                                    Aspect="AspectFit"
-                                    Margin="10" />
-
-                            </Border>
-
-                            <!-- ÜRÜN ADI -->
-                            <Label
-                                Text="{Binding Name}"
-                                FontFamily="OpenSansSemibold"
-                                FontSize="14"
-                                TextColor="{StaticResource TextPrimary}"
-                                LineBreakMode="TailTruncation"
-                                MaxLines="1" />
-
-                            <!-- BİRİM -->
-                            <Label
-                                Text="{Binding Unit}"
-                                FontSize="12"
-                                TextColor="{StaticResource TextSecondary}" />
-
-                            <!-- FİYAT -->
-                            <Grid
-                                ColumnDefinitions="*,Auto"
-                                Margin="0,4,0,0">
-
-                                <VerticalStackLayout
-                                    Grid.Column="0"
-                                    Spacing="0">
-
-                                    <!-- ESKİ FİYAT -->
-                                    <Label
-                                        Text="{Binding OldPrice, StringFormat='{0:0.00} TL'}"
-                                        FontSize="11"
-                                        TextColor="{StaticResource TextSecondary}"
-                                        TextDecorations="Strikethrough" />
-
-                                    <!-- GÜNCEL FİYAT -->
-                                    <Label
-                                        Text="{Binding Price, StringFormat='{0:0.00} TL'}"
-                                        FontFamily="OpenSansSemibold"
-                                        FontSize="15"
-                                        TextColor="{StaticResource Primary}" />
-
-                                </VerticalStackLayout>
-
-                                <!-- + BUTONU -->
-                                <Border
-                                    Grid.Column="1"
-                                    StrokeShape="RoundRectangle 14"
-                                    BackgroundColor="{StaticResource Primary}"
-                                    WidthRequest="32"
-                                    HeightRequest="32"
-                                    Padding="0">
-
-                                    <Label
-                                        Text="+"
-                                        TextColor="White"
-                                        FontSize="20"
-                                        HorizontalOptions="Center"
-                                        VerticalOptions="Center" />
-
+                            <VerticalStackLayout Spacing="8">
+                                <!-- Ürün Görseli -->
+                                <Border StrokeShape="RoundRectangle 12"
+        BackgroundColor="{StaticResource Secondary}"
+        HeightRequest="90"
+        HorizontalOptions="Fill"
+        Padding="0"
+        Stroke="Transparent">
+                                    <Image
+        Source="{Binding Image}"
+        Aspect="AspectFill"
+        HeightRequest="90" />
                                 </Border>
 
-                            </Grid>
+                                <!-- Ürün Adı -->
+                                <Label Text="{Binding Name}" 
+                                       FontFamily="OpenSansSemibold" 
+                                       FontSize="14" 
+                                       LineBreakMode="TailTruncation"
+                                       TextColor="{StaticResource TextPrimary}" />
 
-                        </VerticalStackLayout>
+                                <!-- Fiyat ve Ekle Butonu -->
+                                <Grid ColumnDefinitions="*,Auto" VerticalOptions="End">
+                                    <Label Grid.Column="0" 
+                                           Text="{Binding Price, StringFormat='{}{0:C2}'}" 
+                                           TextColor="{StaticResource Primary}" 
+                                           FontFamily="OpenSansSemibold" 
+                                           FontSize="15" 
+                                           VerticalOptions="Center" />
 
-                    </Border>
-
+                                    <Button Grid.Column="1"
+                                            Text="+"
+                                            FontSize="18"
+                                            FontAttributes="Bold"
+                                            TextColor="White"
+                                            BackgroundColor="{StaticResource Primary}"
+                                            CornerRadius="14"
+                                            WidthRequest="32"
+                                            HeightRequest="32"
+                                            Padding="0"
+                                            VerticalOptions="Center" />
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
                 </DataTemplate>
-
             </CollectionView.ItemTemplate>
+
+            <!-- BOŞ LİSTE GÖRÜNÜMÜ -->
+            <CollectionView.EmptyView>
+                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10" Padding="20">
+                    <Label Text="Bu kategoride henüz ürün bulunmuyor." 
+                           TextColor="{StaticResource TextSecondary}" 
+                           FontSize="14" 
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
 
         </CollectionView>
 

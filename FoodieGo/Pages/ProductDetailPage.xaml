@@ -4,7 +4,8 @@
              xmlns:helpers="clr-namespace:FoodieGo.Helpers"
              x:Class="FoodieGo.Pages.ProductDetailPage"
              BackgroundColor="{StaticResource Background}"
-             Title="Ürün Detay">
+             Title="Ürün Detay"
+             Shell.NavBarIsVisible="False">
 
     <ScrollView>
         <VerticalStackLayout Padding="16" Spacing="16">

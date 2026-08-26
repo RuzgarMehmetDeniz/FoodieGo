@@ -1,5 +1,3 @@
-using FoodieGo.Pages;
-
 namespace FoodieGo.Pages
 {
     public partial class HomePage : ContentPage
@@ -9,24 +7,14 @@ namespace FoodieGo.Pages
             InitializeComponent();
         }
 
-        // Haftanýn Fýrsatlarý bannerýna basýnca
-        // Ýndirimler sayfasýna gider
-        private async void OnDiscountsBannerTapped(
-            object sender,
-            TappedEventArgs e)
+        private async void OnDiscountsBannerTapped(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync(
-                nameof(DiscountsPage));
+            await Navigation.PushAsync(new DiscountsPage());
         }
 
-        // Tümünü Gör'e basýnca
-        // Ürünler sayfasýna gider
-        private async void OnAllProductsTapped(
-            object sender,
-            TappedEventArgs e)
+        private async void OnAllProductsTapped(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync(
-                nameof(ProductsPage));
+            await Navigation.PushAsync(new ProductsPage());
         }
     }
 }

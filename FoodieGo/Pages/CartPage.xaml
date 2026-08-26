@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FoodieGo.Pages.CartPage"
              BackgroundColor="{StaticResource Background}"
-             Title="Sepet">
+             Title="Sepet"
+             Shell.NavBarIsVisible="False">
 
     <Grid RowDefinitions="Auto,*,Auto" Padding="16">
 

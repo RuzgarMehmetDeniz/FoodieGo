@@ -50,9 +50,20 @@ namespace FoodieGo.Services
         {
             await Init();
 
-            return await _db
+            var products = await _db
                 .Table<Product>()
                 .ToListAsync();
+
+            System.Diagnostics.Debug.WriteLine(
+                $"========== PRODUCT SAYISI: {products.Count} ==========");
+
+            foreach (var product in products)
+            {
+                System.Diagnostics.Debug.WriteLine(
+                    $"ID: {product.Id} | {product.Name} | {product.Price} TL | CategoryId: {product.CategoryId}");
+            }
+
+            return products;
         }
 
 
