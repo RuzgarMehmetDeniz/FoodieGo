@@ -39,5 +39,7 @@ namespace FoodieGo.Helpers
 
         // İstatistikler sayfası (yeni eklendi)
         public const string BarChart = "\ue26b";
+        public const string AttachMoney = "\ue227";
+        public const string Star = "\ue838";
     }
 }

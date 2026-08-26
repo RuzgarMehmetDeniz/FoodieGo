@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:FoodieGo.Helpers"
              x:Class="FoodieGo.Pages.OrdersPage"
              BackgroundColor="{StaticResource Background}"
              Title="Siparişlerim">
 
-    <Grid RowDefinitions="Auto,*" Padding="16">
+    <Grid RowDefinitions="Auto,Auto,*" Padding="16">
 
-        <Label Grid.Row="0" Text="Siparişlerim" FontFamily="OpenSansSemibold" FontSize="22"
+        <Border Grid.Row="0" StrokeShape="RoundRectangle 18" BackgroundColor="{StaticResource CardBackground}"
+                WidthRequest="40" HeightRequest="40" Padding="0" HorizontalOptions="Start" Margin="0,0,0,12">
+            <Label Text="{x:Static helpers:IconFont.ArrowBack}" FontFamily="MaterialSymbols" FontSize="20"
+                   TextColor="{StaticResource TextPrimary}" HorizontalOptions="Center" VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+        </Border>
+
+        <Label Grid.Row="1" Text="Siparişlerim" FontFamily="OpenSansSemibold" FontSize="22"
                TextColor="{StaticResource TextPrimary}" Margin="0,0,0,12" />
 
-        <CollectionView Grid.Row="1" x:Name="OrdersList">
+        <CollectionView Grid.Row="2" x:Name="OrdersList">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
             </CollectionView.ItemsLayout>

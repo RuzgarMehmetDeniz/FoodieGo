@@ -1,8 +1,8 @@
-using System.Collections.ObjectModel;
+ï»¿using System.Collections.ObjectModel;
 
 namespace FoodieGo.Pages
 {
-    // Geçici görüntüleme sýnýfý - DB baðlanýnca Models/Order kullanýlacak
+    // Geï¿½ici gï¿½rï¿½ntï¿½leme sï¿½nï¿½fï¿½ - DB baï¿½lanï¿½nca Models/Order kullanï¿½lacak
     public class OrderDisplayItem
     {
         public string OrderDate { get; set; }
@@ -19,10 +19,15 @@ namespace FoodieGo.Pages
 
             OrdersList.ItemsSource = new ObservableCollection<OrderDisplayItem>
             {
-                new() { OrderDate = "24 Aðu 2026", Status = "Teslim Edildi", Summary = "3 ürün", TotalPrice = 142.30m },
-                new() { OrderDate = "18 Aðu 2026", Status = "Teslim Edildi", Summary = "5 ürün", TotalPrice = 268.90m },
-                new() { OrderDate = "10 Aðu 2026", Status = "Ýptal Edildi", Summary = "2 ürün", TotalPrice = 61.40m },
+                new() { OrderDate = "24 Aï¿½u 2026", Status = "Teslim Edildi", Summary = "3 ï¿½rï¿½n", TotalPrice = 142.30m },
+                new() { OrderDate = "18 Aï¿½u 2026", Status = "Teslim Edildi", Summary = "5 ï¿½rï¿½n", TotalPrice = 268.90m },
+                new() { OrderDate = "10 Aï¿½u 2026", Status = "ï¿½ptal Edildi", Summary = "2 ï¿½rï¿½n", TotalPrice = 61.40m },
             };
+        }
+
+        private async void OnBackTapped(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("..");
         }
     }
 }

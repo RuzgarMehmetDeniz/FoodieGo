@@ -33,6 +33,17 @@
                 </Border>
 
                 <Border StrokeShape="RoundRectangle 14" BackgroundColor="{StaticResource CardBackground}" Stroke="{StaticResource Divider}" Padding="14">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnStatisticsTapped" />
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
+                        <Label Grid.Column="0" Text="{x:Static helpers:IconFont.BarChart}" FontFamily="MaterialSymbols" FontSize="20" TextColor="{StaticResource Primary}" VerticalOptions="Center" />
+                        <Label Grid.Column="1" Text="İstatistiklerim" FontSize="15" TextColor="{StaticResource TextPrimary}" VerticalOptions="Center" />
+                        <Label Grid.Column="2" Text="{x:Static helpers:IconFont.ChevronRight}" FontFamily="MaterialSymbols" FontSize="18" TextColor="{StaticResource TextSecondary}" VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 14" BackgroundColor="{StaticResource CardBackground}" Stroke="{StaticResource Divider}" Padding="14">
                     <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
                         <Label Grid.Column="0" Text="{x:Static helpers:IconFont.LocationCity}" FontFamily="MaterialSymbols" FontSize="20" TextColor="{StaticResource Primary}" VerticalOptions="Center" />
                         <Label Grid.Column="1" Text="Adreslerim" FontSize="15" TextColor="{StaticResource TextPrimary}" VerticalOptions="Center" />

@@ -6,5 +6,10 @@ namespace FoodieGo.Pages
         {
             InitializeComponent();
         }
+
+        private async void OnStatisticsTapped(object sender, TappedEventArgs e)
+        {
+            await Shell.Current.GoToAsync(nameof(StatisticsPage));
+        }
     }
 }

@@ -13,22 +13,25 @@ namespace FoodieGo.Services
     {
         private SQLiteAsyncConnection _db;
 
-        // Veritabanı dosyasının sabit masaüstü yolu
-        private const string DbPath = @"C:\Users\Acer\OneDrive\Masaüstü\DbFoodieGo.db";
+        // Veritabanı dosyasının adı - uygulamanın kendi (platformdan bağımsız) veri klasöründe tutulur
+        private const string DbFileName = "FoodieGo.db3";
+
         private async Task Init()
         {
             if (_db is not null)
                 return;
 
-            // Dosya gerçekten var mı diye kontrol et (yoksa anlaşılır hata ver)
-            if (!File.Exists(DbPath))
-                throw new FileNotFoundException($"Veritabanı bulunamadı: {DbPath}");
+            // FileSystem.AppDataDirectory: her cihazda/platformda otomatik var olan,
+            // uygulamaya özel yazılabilir klasör. Artık sabit bir masaüstü yoluna bağlı değiliz.
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, DbFileName);
 
-            // Salt okunur olarak aç (sadece listeleyeceğiz)
-            _db = new SQLiteAsyncConnection(DbPath);
+            _db = new SQLiteAsyncConnection(dbPath);
 
-            // async imzasını korumak için (bu metotta await yok)
-            await Task.CompletedTask;
+            // İlk çalıştırmada dosya/tablolar yoksa burada otomatik oluşturulur
+            await _db.CreateTableAsync<Category>();
+            await _db.CreateTableAsync<Product>();
+            await _db.CreateTableAsync<Discount>();
+            await _db.CreateTableAsync<CartItem>();
         }
 
         // ---------- LİSTELEME (sadece okuma) ----------

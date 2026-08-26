@@ -61,6 +61,9 @@
                             BackgroundColor="{StaticResource Primary}"
                             WidthRequest="240" HeightRequest="130"
                             Padding="16">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnDiscountsBannerTapped" />
+                        </Border.GestureRecognizers>
                         <VerticalStackLayout VerticalOptions="Center" Spacing="8">
                             <Border StrokeShape="RoundRectangle 20"
                                     BackgroundColor="{StaticResource DiscountRed}"
