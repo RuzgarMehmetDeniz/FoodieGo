@@ -1,34 +1,70 @@
-﻿using System.Collections.ObjectModel;
+﻿using FoodieGo.Models;
+using FoodieGo.Services;
 using System.Linq;
 
 namespace FoodieGo.Pages
 {
-    // Geçici görüntüleme sınıfı - DB bağlanınca CartDisplayItem (Models) kullanılacak
-    public class CartDisplayItem
-    {
-        public string Name { get; set; }
-        public decimal Price { get; set; }
-        public int Quantity { get; set; }
-        public string Emoji { get; set; }
-    }
-
     public partial class CartPage : ContentPage
     {
+        private readonly DatabaseService _databaseService;
+
         public CartPage()
         {
             InitializeComponent();
+            _databaseService = new DatabaseService();
+        }
 
-            var demoCart = new ObservableCollection<CartDisplayItem>
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await LoadCartAsync();
+        }
+
+        private async Task LoadCartAsync()
+        {
+            try
             {
-                new() { Name = "Elma (Kg)", Price = 34.90m, Quantity = 2, Emoji = "🍎" },
-                new() { Name = "Tam Yağlı Süt", Price = 27.50m, Quantity = 1, Emoji = "🥛" },
-            };
+                List<CartDisplayItem> items = await _databaseService.GetCartDisplayItemsAsync();
 
-            CartList.ItemsSource = demoCart;
+                CartList.ItemsSource = items;
 
-            // Case kuralı: sepet toplamı verilerden hesaplanmalı
-            decimal total = demoCart.Sum(i => i.Price * i.Quantity);
-            TotalLabel.Text = $"{total:0.00} TL";
+                decimal total = items.Sum(i => i.LineTotal);
+                TotalLabel.Text = $"{total:0.00} TL";
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Hata", $"Sepet yüklenirken bir sorun oluştu: {ex.Message}", "Tamam");
+            }
+        }
+
+        private async void OnIncreaseTapped(object sender, EventArgs e)
+        {
+            if (sender is not Label label)
+                return;
+
+            if (label.GestureRecognizers.FirstOrDefault() is not TapGestureRecognizer tap)
+                return;
+
+            if (tap.CommandParameter is not int productId)
+                return;
+
+            await _databaseService.AddToCartAsync(productId);
+            await LoadCartAsync();
+        }
+
+        private async void OnDecreaseTapped(object sender, EventArgs e)
+        {
+            if (sender is not Label label)
+                return;
+
+            if (label.GestureRecognizers.FirstOrDefault() is not TapGestureRecognizer tap)
+                return;
+
+            if (tap.CommandParameter is not int productId)
+                return;
+
+            await _databaseService.RemoveFromCartAsync(productId);
+            await LoadCartAsync();
         }
     }
 }

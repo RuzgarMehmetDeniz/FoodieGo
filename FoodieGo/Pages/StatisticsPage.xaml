@@ -10,6 +10,7 @@
     <ScrollView>
         <VerticalStackLayout Padding="16,16,16,24" Spacing="20">
 
+            <!-- Başlık -->
             <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
                 <Border Grid.Column="0" StrokeShape="RoundRectangle 18" BackgroundColor="{StaticResource CardBackground}" WidthRequest="40" HeightRequest="40" Padding="0">
                     <Label Text="{x:Static helpers:IconFont.ArrowBack}" FontFamily="MaterialSymbols" FontSize="20"
@@ -21,11 +22,12 @@
                 </Border>
                 <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
                     <Label Text="İstatistikler" FontFamily="OpenSansSemibold" FontSize="22" TextColor="{StaticResource TextPrimary}" />
-                    <Label Text="Bu ayki alışveriş özetin" FontSize="14" TextColor="{StaticResource TextSecondary}" />
+                    <Label Text="Veritabanından anlık özet" FontSize="14" TextColor="{StaticResource TextSecondary}" />
                 </VerticalStackLayout>
             </Grid>
 
-            <!-- KPI kartları: 2x2 -->
+            <!-- ANA KPI'LAR (case zorunlu) -->
+            <Label Text="Genel Bakış" FontFamily="OpenSansSemibold" FontSize="16" TextColor="{StaticResource TextPrimary}" />
             <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="12">
 
                 <Border Grid.Row="0" Grid.Column="0" StrokeShape="RoundRectangle 16"
@@ -33,11 +35,11 @@
                     <VerticalStackLayout Spacing="8">
                         <Border StrokeShape="RoundRectangle 20" BackgroundColor="{StaticResource Secondary}"
                                 WidthRequest="40" HeightRequest="40" Padding="0" HorizontalOptions="Start">
-                            <Label Text="{x:Static helpers:IconFont.Receipt}" FontFamily="MaterialSymbols" FontSize="20"
+                            <Label Text="{x:Static helpers:IconFont.ShoppingBasket}" FontFamily="MaterialSymbols" FontSize="20"
                                    TextColor="{StaticResource Primary}" HorizontalOptions="Center" VerticalOptions="Center" />
                         </Border>
-                        <Label Text="14" FontFamily="OpenSansSemibold" FontSize="22" TextColor="{StaticResource TextPrimary}" />
-                        <Label Text="Toplam Sipariş" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                        <Label x:Name="TotalProductLabel" Text="0" FontFamily="OpenSansSemibold" FontSize="22" TextColor="{StaticResource TextPrimary}" />
+                        <Label Text="Toplam Ürün" FontSize="12" TextColor="{StaticResource TextSecondary}" />
                     </VerticalStackLayout>
                 </Border>
 
@@ -46,11 +48,11 @@
                     <VerticalStackLayout Spacing="8">
                         <Border StrokeShape="RoundRectangle 20" BackgroundColor="{StaticResource Secondary}"
                                 WidthRequest="40" HeightRequest="40" Padding="0" HorizontalOptions="Start">
-                            <Label Text="{x:Static helpers:IconFont.AttachMoney}" FontFamily="MaterialSymbols" FontSize="20"
+                            <Label Text="{x:Static helpers:IconFont.Receipt}" FontFamily="MaterialSymbols" FontSize="20"
                                    TextColor="{StaticResource Primary}" HorizontalOptions="Center" VerticalOptions="Center" />
                         </Border>
-                        <Label Text="2.148,50 TL" FontFamily="OpenSansSemibold" FontSize="22" TextColor="{StaticResource TextPrimary}" />
-                        <Label Text="Toplam Harcama" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                        <Label x:Name="CartItemCountLabel" Text="0" FontFamily="OpenSansSemibold" FontSize="22" TextColor="{StaticResource TextPrimary}" />
+                        <Label Text="Sepetteki Ürün Adedi" FontSize="12" TextColor="{StaticResource TextSecondary}" />
                     </VerticalStackLayout>
                 </Border>
 
@@ -59,11 +61,11 @@
                     <VerticalStackLayout Spacing="8">
                         <Border StrokeShape="RoundRectangle 20" BackgroundColor="{StaticResource Secondary}"
                                 WidthRequest="40" HeightRequest="40" Padding="0" HorizontalOptions="Start">
-                            <Label Text="{x:Static helpers:IconFont.Star}" FontFamily="MaterialSymbols" FontSize="20"
+                            <Label Text="{x:Static helpers:IconFont.AttachMoney}" FontFamily="MaterialSymbols" FontSize="20"
                                    TextColor="{StaticResource Primary}" HorizontalOptions="Center" VerticalOptions="Center" />
                         </Border>
-                        <Label Text="Meyve&amp;Sebze" FontFamily="OpenSansSemibold" FontSize="18" TextColor="{StaticResource TextPrimary}" />
-                        <Label Text="Favori Kategori" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                        <Label x:Name="CartTotalLabel" Text="0,00 TL" FontFamily="OpenSansSemibold" FontSize="22" TextColor="{StaticResource TextPrimary}" />
+                        <Label Text="Sepet Toplamı" FontSize="12" TextColor="{StaticResource TextSecondary}" />
                     </VerticalStackLayout>
                 </Border>
 
@@ -72,19 +74,57 @@
                     <VerticalStackLayout Spacing="8">
                         <Border StrokeShape="RoundRectangle 20" BackgroundColor="{StaticResource Secondary}"
                                 WidthRequest="40" HeightRequest="40" Padding="0" HorizontalOptions="Start">
-                            <Label Text="{x:Static helpers:IconFont.ShoppingBasket}" FontFamily="MaterialSymbols" FontSize="20"
+                            <Label Text="{x:Static helpers:IconFont.Star}" FontFamily="MaterialSymbols" FontSize="20"
                                    TextColor="{StaticResource Primary}" HorizontalOptions="Center" VerticalOptions="Center" />
                         </Border>
-                        <Label Text="153,50 TL" FontFamily="OpenSansSemibold" FontSize="22" TextColor="{StaticResource TextPrimary}" />
-                        <Label Text="Ortalama Sepet" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                        <Label x:Name="ActiveDiscountLabel" Text="0" FontFamily="OpenSansSemibold" FontSize="22" TextColor="{StaticResource TextPrimary}" />
+                        <Label Text="Aktif İndirim" FontSize="12" TextColor="{StaticResource TextSecondary}" />
                     </VerticalStackLayout>
                 </Border>
 
             </Grid>
 
-            <!-- Kategori dağılımı -->
+            <!-- EK DETAYLAR -->
+            <Label Text="Detaylar" FontFamily="OpenSansSemibold" FontSize="16" TextColor="{StaticResource TextPrimary}" />
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="12">
+
+                <Border Grid.Row="0" Grid.Column="0" StrokeShape="RoundRectangle 16"
+                        BackgroundColor="{StaticResource CardBackground}" Stroke="{StaticResource Divider}" Padding="14">
+                    <VerticalStackLayout Spacing="4">
+                        <Label x:Name="TotalCategoryLabel" Text="0" FontFamily="OpenSansSemibold" FontSize="18" TextColor="{StaticResource TextPrimary}" />
+                        <Label Text="Toplam Kategori" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Row="0" Grid.Column="1" StrokeShape="RoundRectangle 16"
+                        BackgroundColor="{StaticResource CardBackground}" Stroke="{StaticResource Divider}" Padding="14">
+                    <VerticalStackLayout Spacing="4">
+                        <Label x:Name="AvgPriceLabel" Text="0,00 TL" FontFamily="OpenSansSemibold" FontSize="18" TextColor="{StaticResource TextPrimary}" />
+                        <Label Text="Ortalama Ürün Fiyatı" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Row="1" Grid.Column="0" StrokeShape="RoundRectangle 16"
+                        BackgroundColor="{StaticResource CardBackground}" Stroke="{StaticResource Divider}" Padding="14">
+                    <VerticalStackLayout Spacing="4">
+                        <Label x:Name="DistinctCartLabel" Text="0" FontFamily="OpenSansSemibold" FontSize="18" TextColor="{StaticResource TextPrimary}" />
+                        <Label Text="Sepetteki Ürün Çeşidi" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Row="1" Grid.Column="1" StrokeShape="RoundRectangle 16"
+                        BackgroundColor="{StaticResource CardBackground}" Stroke="{StaticResource Divider}" Padding="14">
+                    <VerticalStackLayout Spacing="4">
+                        <Label x:Name="MaxDiscountLabel" Text="%0" FontFamily="OpenSansSemibold" FontSize="18" TextColor="{StaticResource TextPrimary}" />
+                        <Label Text="En Yüksek İndirim" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+
+            <!-- Kategori dağılımı (gerçek ürün sayısına göre) -->
             <VerticalStackLayout Spacing="12">
-                <Label Text="Kategori Dağılımı" FontFamily="OpenSansSemibold" FontSize="18" TextColor="{StaticResource TextPrimary}" />
+                <Label Text="Kategori Dağılımı (Ürün Sayısına Göre)" FontFamily="OpenSansSemibold" FontSize="16" TextColor="{StaticResource TextPrimary}" />
 
                 <CollectionView x:Name="CategoryStatsList">
                     <CollectionView.ItemsLayout>
@@ -95,8 +135,8 @@
                             <VerticalStackLayout Spacing="6">
                                 <Grid ColumnDefinitions="*,Auto">
                                     <Label Grid.Column="0" Text="{Binding Name}" FontSize="14" TextColor="{StaticResource TextPrimary}" />
-                                    <Label Grid.Column="1" Text="{Binding Percentage, StringFormat='%{0}'}"
-                                           FontFamily="OpenSansSemibold" FontSize="14" TextColor="{StaticResource Primary}" />
+                                    <Label Grid.Column="1" Text="{Binding ProductCount, StringFormat='{0} ürün'}"
+                                           FontSize="13" TextColor="{StaticResource TextSecondary}" />
                                 </Grid>
                                 <Border StrokeShape="RoundRectangle 6" BackgroundColor="{StaticResource Secondary}" HeightRequest="10" Padding="0">
                                     <Border StrokeShape="RoundRectangle 6" BackgroundColor="{StaticResource Primary}"
@@ -106,6 +146,9 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+
+                <Label x:Name="EmptyCategoryLabel" Text="Henüz kategori/ürün verisi yok." FontSize="14"
+                       TextColor="{StaticResource TextSecondary}" IsVisible="False" HorizontalOptions="Center" />
             </VerticalStackLayout>
 
         </VerticalStackLayout>

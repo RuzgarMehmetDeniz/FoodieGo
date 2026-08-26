@@ -5,9 +5,7 @@
              BackgroundColor="{StaticResource Background}"
              Title="Sepet"
              Shell.NavBarIsVisible="False">
-
     <Grid RowDefinitions="Auto,*,Auto" Padding="16">
-
         <Label Grid.Row="0" Text="Sepet" FontFamily="OpenSansSemibold" FontSize="22"
                TextColor="{StaticResource TextPrimary}" Margin="0,0,0,12" />
 
@@ -15,6 +13,7 @@
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
             </CollectionView.ItemsLayout>
+
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Border StrokeShape="RoundRectangle 16"
@@ -22,28 +21,61 @@
                             Stroke="{StaticResource Divider}"
                             Padding="12">
                         <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                            <Border Grid.Column="0" StrokeShape="RoundRectangle 12" BackgroundColor="{StaticResource Secondary}" WidthRequest="56" HeightRequest="56">
-                                <Label Text="{Binding Emoji}" FontSize="26" HorizontalOptions="Center" VerticalOptions="Center" />
+
+                            <!-- ÜRÜN GÖRSELİ -->
+                            <Border Grid.Column="0"
+                                    StrokeShape="RoundRectangle 12"
+                                    BackgroundColor="{StaticResource Secondary}"
+                                    WidthRequest="56"
+                                    HeightRequest="56"
+                                    Padding="0"
+                                    Stroke="Transparent">
+                                <Image Source="{Binding Image}"
+                                       Aspect="AspectFill"
+                                       WidthRequest="56"
+                                       HeightRequest="56" />
                             </Border>
 
+                            <!-- AD VE FİYAT -->
                             <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
                                 <Label Text="{Binding Name}" FontFamily="OpenSansSemibold" FontSize="15" TextColor="{StaticResource TextPrimary}" />
                                 <Label Text="{Binding Price, StringFormat='{0:0.00} TL'}" FontSize="14" TextColor="{StaticResource Primary}" />
                             </VerticalStackLayout>
 
+                            <!-- ADET KONTROLÜ -->
                             <Grid Grid.Column="2" ColumnDefinitions="Auto,Auto,Auto" ColumnSpacing="8" VerticalOptions="Center">
                                 <Border Grid.Column="0" StrokeShape="RoundRectangle 14" BackgroundColor="{StaticResource Secondary}" WidthRequest="28" HeightRequest="28">
-                                    <Label Text="-" FontSize="16" TextColor="{StaticResource TextPrimary}" HorizontalOptions="Center" VerticalOptions="Center" />
+                                    <Label Text="-" FontSize="16" TextColor="{StaticResource TextPrimary}" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnDecreaseTapped" CommandParameter="{Binding ProductId}" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
                                 </Border>
+
                                 <Label Grid.Column="1" Text="{Binding Quantity}" FontSize="15" FontFamily="OpenSansSemibold" TextColor="{StaticResource TextPrimary}" VerticalOptions="Center" />
+
                                 <Border Grid.Column="2" StrokeShape="RoundRectangle 14" BackgroundColor="{StaticResource Primary}" WidthRequest="28" HeightRequest="28">
-                                    <Label Text="+" FontSize="16" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
+                                    <Label Text="+" FontSize="16" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnIncreaseTapped" CommandParameter="{Binding ProductId}" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
                                 </Border>
                             </Grid>
                         </Grid>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+
+            <!-- BOŞ SEPET GÖRÜNÜMÜ -->
+            <CollectionView.EmptyView>
+                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10" Padding="20">
+                    <Label Text="Sepetiniz boş."
+                           TextColor="{StaticResource TextSecondary}"
+                           FontSize="14"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
         </CollectionView>
 
         <Border Grid.Row="2" StrokeShape="RoundRectangle 16" BackgroundColor="{StaticResource Primary}" Padding="16" Margin="0,12,0,0">
@@ -56,7 +88,5 @@
                         FontFamily="OpenSansSemibold" CornerRadius="10" VerticalOptions="Center" />
             </Grid>
         </Border>
-
     </Grid>
-
 </ContentPage>

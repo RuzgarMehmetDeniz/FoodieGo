@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:FoodieGo.Helpers"
+             x:Class="FoodieGo.Pages.RegisterPage"
+             BackgroundColor="{StaticResource Background}"
+             Title="Kayıt Ol"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24,40,24,24" Spacing="20">
+
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Hesap Oluştur" FontFamily="OpenSansSemibold" FontSize="26" TextColor="{StaticResource TextPrimary}" />
+                <Label Text="FoodieGo'ya hoş geldin, birkaç bilgi yeterli" FontSize="14" TextColor="{StaticResource TextSecondary}" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Ad Soyad" FontSize="13" TextColor="{StaticResource TextSecondary}" />
+                <Border StrokeShape="RoundRectangle 12" BackgroundColor="{StaticResource CardBackground}" Stroke="{StaticResource Divider}" Padding="14,10">
+                    <Entry x:Name="FullNameEntry" Placeholder="Mehmet Deniz" FontSize="15" TextColor="{StaticResource TextPrimary}" />
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="6">
+                <Label Text="E-posta" FontSize="13" TextColor="{StaticResource TextSecondary}" />
+                <Border StrokeShape="RoundRectangle 12" BackgroundColor="{StaticResource CardBackground}" Stroke="{StaticResource Divider}" Padding="14,10">
+                    <Entry x:Name="EmailEntry" Placeholder="mehmet@example.com" Keyboard="Email" FontSize="15" TextColor="{StaticResource TextPrimary}" />
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Şifre" FontSize="13" TextColor="{StaticResource TextSecondary}" />
+                <Border StrokeShape="RoundRectangle 12" BackgroundColor="{StaticResource CardBackground}" Stroke="{StaticResource Divider}" Padding="14,10">
+                    <Entry x:Name="PasswordEntry" Placeholder="En az 6 karakter" IsPassword="True" FontSize="15" TextColor="{StaticResource TextPrimary}" />
+                </Border>
+            </VerticalStackLayout>
+
+            <Label x:Name="ErrorLabel" Text="" FontSize="13" TextColor="Red" IsVisible="False" />
+
+            <Border StrokeShape="RoundRectangle 14" BackgroundColor="{StaticResource Primary}" Padding="0" HeightRequest="52" Margin="0,10,0,0">
+                <Grid>
+                    <Label Text="Kayıt Ol" TextColor="White" FontFamily="OpenSansSemibold" FontSize="16"
+                           HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnRegisterTapped" />
+                    </Grid.GestureRecognizers>
+                </Grid>
+            </Border>
+
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="4" Margin="0,8,0,0">
+                <Label Text="Zaten hesabın var mı?" FontSize="14" TextColor="{StaticResource TextSecondary}" />
+                <Label Text="Giriş yap" FontSize="14" FontFamily="OpenSansSemibold" TextColor="{StaticResource Primary}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnGoToLoginTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

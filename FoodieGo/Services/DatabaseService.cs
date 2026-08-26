@@ -27,6 +27,8 @@ namespace FoodieGo.Services
             await _db.CreateTableAsync<Product>();
             await _db.CreateTableAsync<Discount>();
             await _db.CreateTableAsync<CartItem>();
+            await _db.CreateTableAsync<User>();
+
         }
 
 
@@ -210,6 +212,84 @@ namespace FoodieGo.Services
             }
 
             return result;
+        }
+
+        public async Task<StatisticsData> GetStatisticsAsync()
+        {
+            await Init();
+
+            var products = await _db.Table<Product>().ToListAsync();
+            var categories = await _db.Table<Category>().ToListAsync();
+            var discounts = await _db.Table<Discount>().ToListAsync();
+            var cartItems = await _db.Table<CartItem>().ToListAsync();
+            var cartDisplayItems = await GetCartDisplayItemsAsync();
+
+            var categoryStats = categories.Select(cat =>
+            {
+                int count = products.Count(p => p.CategoryId == cat.Id);
+                double percentage = products.Count == 0
+                    ? 0
+                    : Math.Round((double)count / products.Count * 100, 0);
+
+                return new CategoryProductStat
+                {
+                    Name = cat.Name,
+                    ProductCount = count,
+                    Percentage = percentage
+                };
+            })
+            .OrderByDescending(c => c.ProductCount)
+            .ToList();
+
+            return new StatisticsData
+            {
+                TotalProductCount = products.Count,
+                CartItemCount = cartItems.Sum(c => c.Quantity),
+                CartTotal = cartDisplayItems.Sum(c => c.Price * c.Quantity),
+                ActiveDiscountCount = discounts.Count,
+
+                TotalCategoryCount = categories.Count,
+                AverageProductPrice = products.Count == 0 ? 0 : products.Average(p => p.Price),
+                DistinctCartProductCount = cartItems.Select(c => c.ProductId).Distinct().Count(),
+                MaxDiscountRate = discounts.Count == 0 ? 0 : discounts.Max(d => d.Percentage), // Discount'ta Rate alanın neyse ona göre uyarlarız
+
+                CategoryDistribution = categoryStats
+            };
+        }
+        // =========================
+        // KAYIT OL
+        // =========================
+        public async Task<bool> RegisterAsync(string fullName, string email, string password)
+        {
+            await Init();
+
+            var existing = await _db.Table<User>()
+                .Where(u => u.Email == email)
+                .FirstOrDefaultAsync();
+
+            if (existing != null)
+                return false; // Bu e-posta zaten kayıtlı
+
+            await _db.InsertAsync(new User
+            {
+                FullName = fullName,
+                Email = email,
+                Password = password
+            });
+
+            return true;
+        }
+
+        // =========================
+        // GİRİŞ YAP
+        // =========================
+        public async Task<User> LoginAsync(string email, string password)
+        {
+            await Init();
+
+            return await _db.Table<User>()
+                .Where(u => u.Email == email && u.Password == password)
+                .FirstOrDefaultAsync();
         }
     }
 }

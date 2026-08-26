@@ -1,31 +1,41 @@
-using System.Collections.ObjectModel;
+using FoodieGo.Services;
 
 namespace FoodieGo.Pages
 {
-    // Geçici görüntüleme sýnýfý - DB baðlanýnca gerçek sorgulardan (Order/Product) hesaplanacak
-    public class CategoryStatDisplayItem
-    {
-        public string Name { get; set; }
-        public int Percentage { get; set; }
-
-        // Yüzdeyi ekranda görsel çubuk geniþliðine çevirir (yaklaþýk, sabit bir çarpan)
-        public double BarWidth => Percentage * 2;
-    }
-
     public partial class StatisticsPage : ContentPage
     {
+        private readonly DatabaseService _db = new DatabaseService();
+
         public StatisticsPage()
         {
             InitializeComponent();
+        }
 
-            CategoryStatsList.ItemsSource = new ObservableCollection<CategoryStatDisplayItem>
-            {
-                new() { Name = "Meyve & Sebze", Percentage = 34 },
-                new() { Name = "Süt Ürünleri", Percentage = 22 },
-                new() { Name = "Ýçecekler", Percentage = 18 },
-                new() { Name = "Atýþtýrmalýk", Percentage = 15 },
-                new() { Name = "Fýrýn", Percentage = 11 },
-            };
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await LoadStatisticsAsync();
+        }
+
+        private async Task LoadStatisticsAsync()
+        {
+            var stats = await _db.GetStatisticsAsync();
+
+            // Ana KPI'lar
+            TotalProductLabel.Text = stats.TotalProductCount.ToString();
+            CartItemCountLabel.Text = stats.CartItemCount.ToString();
+            CartTotalLabel.Text = stats.CartTotal.ToString("C2");
+            ActiveDiscountLabel.Text = stats.ActiveDiscountCount.ToString();
+
+            // Ek detaylar
+            TotalCategoryLabel.Text = stats.TotalCategoryCount.ToString();
+            AvgPriceLabel.Text = stats.AverageProductPrice.ToString("C2");
+            DistinctCartLabel.Text = stats.DistinctCartProductCount.ToString();
+            MaxDiscountLabel.Text = $"%{stats.MaxDiscountRate}";
+
+            // Kategori daðýlýmý
+            CategoryStatsList.ItemsSource = stats.CategoryDistribution;
+            EmptyCategoryLabel.IsVisible = stats.CategoryDistribution == null || stats.CategoryDistribution.Count == 0;
         }
 
         private async void OnBackTapped(object sender, EventArgs e)

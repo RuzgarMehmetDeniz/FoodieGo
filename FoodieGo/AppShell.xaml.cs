@@ -14,7 +14,8 @@ namespace FoodieGo
             Routing.RegisterRoute(nameof(OrdersPage), typeof(OrdersPage));
             Routing.RegisterRoute(nameof(DiscountsPage), typeof(DiscountsPage));
             Routing.RegisterRoute(nameof(StatisticsPage), typeof(StatisticsPage));
-            //Routing.RegisterRoute(nameof(SpinWheelPage), typeof(SpinWheelPage));
+            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+            Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
         }
     }
 }
