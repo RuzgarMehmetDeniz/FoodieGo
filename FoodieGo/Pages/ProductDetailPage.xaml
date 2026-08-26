@@ -1,12 +1,51 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:FoodieGo.Helpers"
              x:Class="FoodieGo.Pages.ProductDetailPage"
-             Title="ProductDetailPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             BackgroundColor="{StaticResource Background}"
+             Title="Ürün Detay">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+
+            <Grid ColumnDefinitions="Auto,*">
+                <Border Grid.Column="0" StrokeShape="RoundRectangle 18" BackgroundColor="{StaticResource CardBackground}" WidthRequest="40" HeightRequest="40" Padding="0">
+                    <Label Text="{x:Static helpers:IconFont.ArrowBack}" FontFamily="MaterialSymbols" FontSize="20"
+                           TextColor="{StaticResource TextPrimary}" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBackTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Border>
+            </Grid>
+
+            <Border StrokeShape="RoundRectangle 20" BackgroundColor="{StaticResource Secondary}" HeightRequest="220">
+                <Label Text="🍎" FontSize="90" HorizontalOptions="Center" VerticalOptions="Center" />
+            </Border>
+
+            <Label Text="Elma (Kg)" FontFamily="OpenSansSemibold" FontSize="24" TextColor="{StaticResource TextPrimary}" />
+            <Label Text="1 kg birim fiyatıdır." FontSize="14" TextColor="{StaticResource TextSecondary}" />
+            <Label Text="34,90 TL" FontFamily="OpenSansSemibold" FontSize="26" TextColor="{StaticResource Primary}" />
+
+            <Border StrokeShape="RoundRectangle 12" Stroke="{StaticResource Divider}" Padding="16">
+                <Label Text="Taze, yerli üretim elma. Serin ve kuru yerde saklanması önerilir." FontSize="14"
+                       TextColor="{StaticResource TextPrimary}" />
+            </Border>
+
+            <Grid ColumnDefinitions="Auto,Auto,Auto" ColumnSpacing="16" HorizontalOptions="Center">
+                <Border Grid.Column="0" StrokeShape="RoundRectangle 18" BackgroundColor="{StaticResource Secondary}" WidthRequest="36" HeightRequest="36">
+                    <Label Text="-" FontSize="20" TextColor="{StaticResource TextPrimary}" HorizontalOptions="Center" VerticalOptions="Center" />
+                </Border>
+                <Label Grid.Column="1" Text="1" FontSize="18" FontFamily="OpenSansSemibold" VerticalOptions="Center" TextColor="{StaticResource TextPrimary}" />
+                <Border Grid.Column="2" StrokeShape="RoundRectangle 18" BackgroundColor="{StaticResource Primary}" WidthRequest="36" HeightRequest="36">
+                    <Label Text="+" FontSize="20" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
+                </Border>
+            </Grid>
+
+            <Button Text="Sepete Ekle" FontFamily="OpenSansSemibold" HeightRequest="50" CornerRadius="12" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
 </ContentPage>

@@ -1,35 +1,55 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <Shell
     x:Class="FoodieGo.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:FoodieGo.Pages"
-    Title="FoodieGo">
-
+    xmlns:helpers="clr-namespace:FoodieGo.Helpers"
+    Title="FoodieGo"
+    Shell.BackgroundColor="{StaticResource Background}"
+    Shell.ForegroundColor="{StaticResource TextPrimary}"
+    Shell.TitleColor="{StaticResource TextPrimary}"
+    Shell.TabBarBackgroundColor="{StaticResource Primary}"
+    Shell.TabBarForegroundColor="{StaticResource White}"
+    Shell.TabBarTitleColor="{StaticResource White}"
+    Shell.TabBarUnselectedColor="#B9D9C7"
+    Shell.NavBarIsVisible="False"
+    Shell.NavBarHasShadow="False">
     <TabBar>
         <ShellContent
             Title="Ana Sayfa"
-            Icon="home.png"
             ContentTemplate="{DataTemplate pages:HomePage}"
-            Route="HomePage" />
+            Route="HomePage">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="MaterialSymbols" Glyph="{x:Static helpers:IconFont.Home}" Size="22" Color="White" />
+            </ShellContent.Icon>
+        </ShellContent>
 
         <ShellContent
             Title="Kategoriler"
-            Icon="grid.png"
             ContentTemplate="{DataTemplate pages:CategoriesPage}"
-            Route="CategoriesPage" />
+            Route="CategoriesPage">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="MaterialSymbols" Glyph="{x:Static helpers:IconFont.GridView}" Size="22" Color="White" />
+            </ShellContent.Icon>
+        </ShellContent>
 
         <ShellContent
             Title="Sepet"
-            Icon="cart.png"
             ContentTemplate="{DataTemplate pages:CartPage}"
-            Route="CartPage" />
+            Route="CartPage">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="MaterialSymbols" Glyph="{x:Static helpers:IconFont.ShoppingCart}" Size="22" Color="White" />
+            </ShellContent.Icon>
+        </ShellContent>
 
         <ShellContent
             Title="Profil"
-            Icon="person.png"
             ContentTemplate="{DataTemplate pages:ProfilePage}"
-            Route="ProfilePage" />
+            Route="ProfilePage">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="MaterialSymbols" Glyph="{x:Static helpers:IconFont.Person}" Size="22" Color="White" />
+            </ShellContent.Icon>
+        </ShellContent>
     </TabBar>
 
 </Shell>

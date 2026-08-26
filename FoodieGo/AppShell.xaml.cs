@@ -8,10 +8,13 @@ namespace FoodieGo
         {
             InitializeComponent();
 
-            // TabBar'da olmayan, parametreyle/tıklayarak gidilen sayfalar
-            Routing.RegisterRoute(nameof(ProductListPage), typeof(ProductListPage));
+            // TabBar dışında, koddan gidilecek sayfalar
+            Routing.RegisterRoute(nameof(ProductsPage), typeof(ProductsPage));
+            Routing.RegisterRoute(nameof(ProductDetailPage), typeof(ProductDetailPage));
+            Routing.RegisterRoute(nameof(OrdersPage), typeof(OrdersPage));
             Routing.RegisterRoute(nameof(DiscountsPage), typeof(DiscountsPage));
-            Routing.RegisterRoute(nameof(SpinWheelPage), typeof(SpinWheelPage));
+            Routing.RegisterRoute(nameof(StatisticsPage), typeof(StatisticsPage));
+            //Routing.RegisterRoute(nameof(SpinWheelPage), typeof(SpinWheelPage));
         }
     }
 }

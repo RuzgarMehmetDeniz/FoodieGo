@@ -1,9 +1,10 @@
-namespace FoodieGo.Pages;
-
-public partial class HomePage : ContentPage
+namespace FoodieGo.Pages
 {
-	public HomePage()
-	{
-		InitializeComponent();
-	}
+    public partial class HomePage : ContentPage
+    {
+        public HomePage()
+        {
+            InitializeComponent();
+        }
+    }
 }

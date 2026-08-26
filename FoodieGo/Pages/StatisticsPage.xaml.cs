@@ -1,9 +1,10 @@
-namespace FoodieGo.Pages;
-
-public partial class StatisticsPage : ContentPage
+namespace FoodieGo.Pages
 {
-	public StatisticsPage()
-	{
-		InitializeComponent();
-	}
+    public partial class StatisticsPage : ContentPage
+    {
+        public StatisticsPage()
+        {
+            InitializeComponent();
+        }
+    }
 }

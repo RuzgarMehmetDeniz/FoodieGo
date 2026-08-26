@@ -2,11 +2,37 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FoodieGo.Pages.OrdersPage"
-             Title="OrdersPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             BackgroundColor="{StaticResource Background}"
+             Title="Siparişlerim">
+
+    <Grid RowDefinitions="Auto,*" Padding="16">
+
+        <Label Grid.Row="0" Text="Siparişlerim" FontFamily="OpenSansSemibold" FontSize="22"
+               TextColor="{StaticResource TextPrimary}" Margin="0,0,0,12" />
+
+        <CollectionView Grid.Row="1" x:Name="OrdersList">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border StrokeShape="RoundRectangle 16"
+                            BackgroundColor="{StaticResource CardBackground}"
+                            Stroke="{StaticResource Divider}"
+                            Padding="14">
+                        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="6">
+                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding OrderDate}" FontSize="13" TextColor="{StaticResource TextSecondary}" />
+                            <Border Grid.Row="0" Grid.Column="1" StrokeShape="RoundRectangle 12" BackgroundColor="{StaticResource Secondary}" Padding="10,3">
+                                <Label Text="{Binding Status}" FontSize="12" FontFamily="OpenSansSemibold" TextColor="{StaticResource SecondaryDarkText}" />
+                            </Border>
+                            <Label Grid.Row="1" Grid.Column="0" Text="{Binding Summary}" FontFamily="OpenSansSemibold" FontSize="15" TextColor="{StaticResource TextPrimary}" />
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding TotalPrice, StringFormat='{0:0.00} TL'}" FontFamily="OpenSansSemibold" FontSize="15" TextColor="{StaticResource Primary}" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+
 </ContentPage>

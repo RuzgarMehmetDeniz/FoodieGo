@@ -2,11 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FoodieGo.Pages.StatisticsPage"
-             Title="StatisticsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="İstatistikler">
+
+    <Grid>
+        <Label Text="İstatistikler"
+               FontSize="24"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+    </Grid>
+
 </ContentPage>

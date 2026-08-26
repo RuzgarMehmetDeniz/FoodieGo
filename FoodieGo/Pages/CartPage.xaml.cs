@@ -1,18 +1,34 @@
-using FoodieGo.Services;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
 
-namespace FoodieGo.Pages;
-
-public partial class CartPage : ContentPage
+namespace FoodieGo.Pages
 {
-    private readonly DatabaseService _databaseService = new DatabaseService();
-    public CartPage()
+    // Geçici görüntüleme sınıfı - DB bağlanınca CartDisplayItem (Models) kullanılacak
+    public class CartDisplayItem
     {
-        InitializeComponent();
-    }
-    protected override async void OnAppearing()
-    {
-        base.OnAppearing();
-        CartContainer.BindingContext = await _databaseService.GetCartDisplayItemsAsync();
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; }
+        public string Emoji { get; set; }
     }
 
+    public partial class CartPage : ContentPage
+    {
+        public CartPage()
+        {
+            InitializeComponent();
+
+            var demoCart = new ObservableCollection<CartDisplayItem>
+            {
+                new() { Name = "Elma (Kg)", Price = 34.90m, Quantity = 2, Emoji = "🍎" },
+                new() { Name = "Tam Yağlı Süt", Price = 27.50m, Quantity = 1, Emoji = "🥛" },
+            };
+
+            CartList.ItemsSource = demoCart;
+
+            // Case kuralı: sepet toplamı verilerden hesaplanmalı
+            decimal total = demoCart.Sum(i => i.Price * i.Quantity);
+            TotalLabel.Text = $"{total:0.00} TL";
+        }
+    }
 }

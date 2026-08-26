@@ -1,15 +1,10 @@
-namespace FoodieGo.Pages;
-
-public partial class ProfilePage : ContentPage
+namespace FoodieGo.Pages
 {
-	public ProfilePage()
-	{
-		InitializeComponent();
-	}
-    private async void OnCategoriesTapped(object sender, TappedEventArgs e)
+    public partial class ProfilePage : ContentPage
     {
-        await Navigation.PushAsync(new CategoriesPage());
+        public ProfilePage()
+        {
+            InitializeComponent();
+        }
     }
-
-
 }

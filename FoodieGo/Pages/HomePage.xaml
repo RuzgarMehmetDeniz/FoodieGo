@@ -3,239 +3,135 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:helpers="clr-namespace:FoodieGo.Helpers"
              x:Class="FoodieGo.Pages.HomePage"
-             Shell.NavBarIsVisible="False"
-             BackgroundColor="#F8F9FF"
+             BackgroundColor="{StaticResource Background}"
              Title="Ana Sayfa">
 
-    <!-- En dış: içerik (kaydırılır) + alt bar (sabit) -->
-    <Grid RowDefinitions="*, Auto">
+    <ScrollView>
+        <VerticalStackLayout Padding="16,16,16,24" Spacing="18">
 
-        <!-- KAYDIRILABİLİR İÇERİK -->
-        <ScrollView Grid.Row="0">
-            <VerticalStackLayout Spacing="24" Padding="16,12,16,24">
-
-                <!-- ÜST BAR: konum | adres | bildirim -->
-                <Grid ColumnDefinitions="Auto, *, Auto" VerticalOptions="Center">
-                    <Label Grid.Column="0"
-                           Text="{x:Static helpers:IconFont.LocationOn}"
-                           FontFamily="MaterialSymbols"
-                           FontSize="26"
-                           TextColor="#006C49"
-                           VerticalOptions="Center" />
-                    <Label Grid.Column="1"
-                           Text="Ev • Kurtköy, İstanbul"
-                           FontFamily="InterBold"
-                           FontSize="18"
-                           TextColor="#006C49"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center" />
-                    <Label Grid.Column="2"
-                           Text="{x:Static helpers:IconFont.Notifications}"
-                           FontFamily="MaterialSymbols"
-                           FontSize="26"
-                           TextColor="#006C49"
-                           VerticalOptions="Center" />
-                </Grid>
-
-                <!-- ARAMA KUTUSU -->
-                <Border BackgroundColor="#EFF4FF"
-                        StrokeShape="RoundRectangle 25"
-                        Stroke="Transparent"
-                        Padding="16,0"
-                        HeightRequest="50">
-                    <Grid ColumnDefinitions="Auto, *" VerticalOptions="Center">
-                        <Label Grid.Column="0"
-                               Text="{x:Static helpers:IconFont.Search}"
-                               FontFamily="MaterialSymbols"
-                               FontSize="22"
-                               TextColor="#3C4A42"
-                               VerticalOptions="Center" />
-                        <Entry Grid.Column="1"
-                               Placeholder="Ürün, kategori veya marka ara"
-                               BackgroundColor="Transparent"
-                               Margin="8,0,0,0"
-                               FontFamily="Inter"
-                               FontSize="15" />
-                    </Grid>
-                </Border>
-
-                <!-- KAMPANYA BANNER'LARI (yatay kaydırma) -->
-                <ScrollView Orientation="Horizontal">
-                    <HorizontalStackLayout Spacing="12">
-
-                        <!-- Banner 1 -->
-                        <Border WidthRequest="300" HeightRequest="160"
-                                StrokeShape="RoundRectangle 16"
-                                Stroke="Transparent"
-                                BackgroundColor="#006C49"
-                                Padding="20">
-                            <VerticalStackLayout VerticalOptions="Center" Spacing="8">
-                                <Border BackgroundColor="#BA1A1A"
-                                        StrokeShape="RoundRectangle 12"
-                                        Stroke="Transparent"
-                                        Padding="10,4"
-                                        HorizontalOptions="Start">
-                                    <Label Text="%30 İndirim" FontFamily="InterBold" FontSize="12" TextColor="White" />
-                                </Border>
-                                <Label Text="Haftanın Fırsatları" FontFamily="InterBold" FontSize="20" TextColor="White" />
-                            </VerticalStackLayout>
-                        </Border>
-
-                        <!-- Banner 2 -->
-                        <Border WidthRequest="300" HeightRequest="160"
-                                StrokeShape="RoundRectangle 16"
-                                Stroke="Transparent"
-                                BackgroundColor="#10B981"
-                                Padding="20">
-                            <VerticalStackLayout VerticalOptions="Center" Spacing="8">
-                                <Border BackgroundColor="#FDD000"
-                                        StrokeShape="RoundRectangle 12"
-                                        Stroke="Transparent"
-                                        Padding="10,4"
-                                        HorizontalOptions="Start">
-                                    <Label Text="Taze" FontFamily="InterBold" FontSize="12" TextColor="#231B00" />
-                                </Border>
-                                <Label Text="Taptaze Meyve &amp; Sebze" FontFamily="InterBold" FontSize="20" TextColor="White" />
-                            </VerticalStackLayout>
-                        </Border>
-
-                    </HorizontalStackLayout>
-                </ScrollView>
-
-                <!-- KATEGORİLER başlık satırı -->
-                <Grid ColumnDefinitions="*, Auto">
-                    <Label Grid.Column="0" Text="Kategoriler" FontFamily="InterBold" FontSize="20" TextColor="#121C2A" />
-                    <Label Grid.Column="1" Text="Tümünü Gör" FontFamily="Inter" FontSize="14" TextColor="#006C49" VerticalOptions="Center" />
-                </Grid>
-
-                <!-- KATEGORİ KISAYOLLARI (yatay kaydırma) -->
-                <ScrollView Orientation="Horizontal">
-                    <HorizontalStackLayout Spacing="16">
-
-                        <VerticalStackLayout WidthRequest="90" Spacing="8">
-                            <Border WidthRequest="80" HeightRequest="80"
-                                    StrokeShape="RoundRectangle 20"
-                                    Stroke="Transparent"
-                                    BackgroundColor="#D9E3F6">
-                                <Label Text="🍎" FontSize="36" HorizontalOptions="Center" VerticalOptions="Center" />
-                            </Border>
-                            <Label Text="Meyve &amp; Sebze" FontFamily="Inter" FontSize="12" TextColor="#121C2A" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
-                        </VerticalStackLayout>
-
-                        <VerticalStackLayout WidthRequest="90" Spacing="8">
-                            <Border WidthRequest="80" HeightRequest="80"
-                                    StrokeShape="RoundRectangle 20"
-                                    Stroke="Transparent"
-                                    BackgroundColor="#EFF4FF">
-                                <Label Text="🥛" FontSize="36" HorizontalOptions="Center" VerticalOptions="Center" />
-                            </Border>
-                            <Label Text="Süt &amp; Kahvaltı" FontFamily="Inter" FontSize="12" TextColor="#121C2A" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
-                        </VerticalStackLayout>
-
-                        <VerticalStackLayout WidthRequest="90" Spacing="8">
-                            <Border WidthRequest="80" HeightRequest="80"
-                                    StrokeShape="RoundRectangle 20"
-                                    Stroke="Transparent"
-                                    BackgroundColor="#EAF1FF">
-                                <Label Text="🥨" FontSize="36" HorizontalOptions="Center" VerticalOptions="Center" />
-                            </Border>
-                            <Label Text="Atıştırmalık" FontFamily="Inter" FontSize="12" TextColor="#121C2A" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
-                        </VerticalStackLayout>
-
-                    </HorizontalStackLayout>
-                </ScrollView>
-
-                <!-- ÖNE ÇIKAN ÜRÜNLER başlık -->
-                <Label Text="Kaçırılmayacak Fırsatlar" FontFamily="InterBold" FontSize="20" TextColor="#121C2A" />
-
-                <!-- ÖNE ÇIKAN ÜRÜNLER (yatay kaydırma) -->
-                <ScrollView Orientation="Horizontal">
-                    <HorizontalStackLayout Spacing="12">
-
-                        <!-- Ürün 1: Süt -->
-                        <Border WidthRequest="150"
-                                BackgroundColor="White"
-                                StrokeShape="RoundRectangle 24"
-                                Stroke="Transparent"
-                                Padding="12">
-                            <VerticalStackLayout Spacing="6">
-                                <Label Text="🥛" FontSize="50" HorizontalOptions="Center" />
-                                <Label Text="Sütaş Tam Yağlı Süt 1 L" FontFamily="Inter" FontSize="13" TextColor="#3C4A42" />
-                                <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center" Margin="0,4,0,0">
-                                    <Label Grid.Column="0" Text="34,90 TL" FontFamily="InterBold" FontSize="16" TextColor="#121C2A" VerticalOptions="Center" />
-                                    <Label Grid.Column="1" Text="{x:Static helpers:IconFont.Add}" FontFamily="MaterialSymbols" FontSize="22" TextColor="#006C49" />
-                                </Grid>
-                            </VerticalStackLayout>
-                        </Border>
-
-                        <!-- Ürün 2: Cola -->
-                        <Border WidthRequest="150"
-                                BackgroundColor="White"
-                                StrokeShape="RoundRectangle 24"
-                                Stroke="Transparent"
-                                Padding="12">
-                            <VerticalStackLayout Spacing="6">
-                                <Label Text="🥤" FontSize="50" HorizontalOptions="Center" />
-                                <Label Text="Coca-Cola 1 L" FontFamily="Inter" FontSize="13" TextColor="#3C4A42" />
-                                <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center" Margin="0,4,0,0">
-                                    <Label Grid.Column="0" Text="39,90 TL" FontFamily="InterBold" FontSize="16" TextColor="#121C2A" VerticalOptions="Center" />
-                                    <Label Grid.Column="1" Text="{x:Static helpers:IconFont.Add}" FontFamily="MaterialSymbols" FontSize="22" TextColor="#006C49" />
-                                </Grid>
-                            </VerticalStackLayout>
-                        </Border>
-
-                    </HorizontalStackLayout>
-                </ScrollView>
-
-                <!-- ÜCRETSİZ TESLİMAT KARTI -->
-                <Border BackgroundColor="#10B981"
-                        StrokeShape="RoundRectangle 24"
-                        Stroke="Transparent"
-                        Padding="20">
-                    <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
-                        <VerticalStackLayout Grid.Column="0" Spacing="2">
-                            <Label Text="Ücretsiz Teslimat" FontFamily="InterBold" FontSize="18" TextColor="#00422B" />
-                            <Label Text="300 TL ve üzeri siparişlerinizde" FontFamily="Inter" FontSize="13" TextColor="#00422B" />
-                        </VerticalStackLayout>
-                        <Label Grid.Column="1"
-                               Text="{x:Static helpers:IconFont.LocalShipping}"
-                               FontFamily="MaterialSymbols"
-                               FontSize="40"
-                               TextColor="#006C49"
-                               VerticalOptions="Center" />
-                    </Grid>
-                </Border>
-
-            </VerticalStackLayout>
-        </ScrollView>
-
-        <!-- ALT NAVİGASYON (sabit) -->
-        <Border Grid.Row="1"
-                BackgroundColor="White"
-                Stroke="Transparent"
-                Padding="0,8"
-                HeightRequest="80">
-            <Grid ColumnDefinitions="*, *, *, *" VerticalOptions="Center">
-                <VerticalStackLayout Grid.Column="0" Spacing="2" HorizontalOptions="Center">
-                    <Label Text="{x:Static helpers:IconFont.Home}" FontFamily="MaterialSymbols" FontSize="24" TextColor="#006C49" HorizontalOptions="Center" />
-                    <Label Text="Ana Sayfa" FontFamily="InterBold" FontSize="10" TextColor="#006C49" HorizontalOptions="Center" />
-                </VerticalStackLayout>
-                <VerticalStackLayout Grid.Column="1" Spacing="2" HorizontalOptions="Center">
-                    <Label Text="{x:Static helpers:IconFont.GridView}" FontFamily="MaterialSymbols" FontSize="24" TextColor="#3C4A42" HorizontalOptions="Center" />
-                    <Label Text="Kategoriler" FontFamily="Inter" FontSize="10" TextColor="#3C4A42" HorizontalOptions="Center" />
-                </VerticalStackLayout>
-                <VerticalStackLayout Grid.Column="2" Spacing="2" HorizontalOptions="Center">
-                    <Label Text="{x:Static helpers:IconFont.ShoppingCart}" FontFamily="MaterialSymbols" FontSize="24" TextColor="#3C4A42" HorizontalOptions="Center" />
-                    <Label Text="Sepet" FontFamily="Inter" FontSize="10" TextColor="#3C4A42" HorizontalOptions="Center" />
-                </VerticalStackLayout>
-                <VerticalStackLayout Grid.Column="3" Spacing="2" HorizontalOptions="Center">
-                    <Label Text="{x:Static helpers:IconFont.Person}" FontFamily="MaterialSymbols" FontSize="24" TextColor="#3C4A42" HorizontalOptions="Center" />
-                    <Label Text="Profil" FontFamily="Inter" FontSize="10" TextColor="#3C4A42" HorizontalOptions="Center" />
-                </VerticalStackLayout>
+            <!-- Üst bilgi satırı -->
+            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
+                <Label Grid.Column="0"
+                       Text="{x:Static helpers:IconFont.LocationOn}"
+                       FontFamily="MaterialSymbols"
+                       FontSize="20"
+                       TextColor="{StaticResource Primary}"
+                       VerticalOptions="Center" />
+                <Label Grid.Column="1"
+                       Text="Ev • Kurtköy, İstanbul"
+                       FontFamily="OpenSansSemibold"
+                       FontSize="15"
+                       TextColor="{StaticResource TextPrimary}"
+                       VerticalOptions="Center" />
+                <Label Grid.Column="2"
+                       Text="{x:Static helpers:IconFont.Notifications}"
+                       FontFamily="MaterialSymbols"
+                       FontSize="22"
+                       TextColor="{StaticResource TextPrimary}"
+                       VerticalOptions="Center" />
             </Grid>
-        </Border>
 
-    </Grid>
+            <!-- Arama çubuğu -->
+            <Border StrokeShape="RoundRectangle 24"
+                    Stroke="{StaticResource Divider}"
+                    BackgroundColor="{StaticResource CardBackground}"
+                    Padding="16,0"
+                    HeightRequest="48">
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                    <Label Grid.Column="0"
+                           Text="{x:Static helpers:IconFont.Search}"
+                           FontFamily="MaterialSymbols"
+                           FontSize="20"
+                           TextColor="{StaticResource TextSecondary}"
+                           VerticalOptions="Center" />
+                    <Entry Grid.Column="1"
+                           Placeholder="Ürün, kategori veya marka ara"
+                           PlaceholderColor="{StaticResource TextSecondary}"
+                           TextColor="{StaticResource TextPrimary}"
+                           BackgroundColor="Transparent"
+                           VerticalOptions="Center" />
+                </Grid>
+            </Border>
+
+            <!-- Kampanya banner'ları - yatay kaydırılabilir -->
+            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                <HorizontalStackLayout Spacing="12">
+
+                    <Border StrokeShape="RoundRectangle 18"
+                            BackgroundColor="{StaticResource Primary}"
+                            WidthRequest="240" HeightRequest="130"
+                            Padding="16">
+                        <VerticalStackLayout VerticalOptions="Center" Spacing="8">
+                            <Border StrokeShape="RoundRectangle 20"
+                                    BackgroundColor="{StaticResource DiscountRed}"
+                                    Padding="10,4"
+                                    HorizontalOptions="Start">
+                                <Label Text="%30 İndirim" TextColor="White" FontSize="12" FontFamily="OpenSansSemibold" />
+                            </Border>
+                            <Label Text="Haftanın Fırsatları" TextColor="White" FontSize="19" FontFamily="OpenSansSemibold" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border StrokeShape="RoundRectangle 18"
+                            BackgroundColor="{StaticResource SecondaryDarkText}"
+                            WidthRequest="240" HeightRequest="130"
+                            Padding="16">
+                        <VerticalStackLayout VerticalOptions="Center" Spacing="8">
+                            <Border StrokeShape="RoundRectangle 20"
+                                    BackgroundColor="{StaticResource CardBackground}"
+                                    Padding="10,4"
+                                    HorizontalOptions="Start">
+                                <Label Text="Taze" TextColor="{StaticResource SecondaryDarkText}" FontSize="12" FontFamily="OpenSansSemibold" />
+                            </Border>
+                            <Label Text="Meyve &amp; Sebzede Taptaze" TextColor="White" FontSize="18" FontFamily="OpenSansSemibold" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                </HorizontalStackLayout>
+            </ScrollView>
+
+            <!-- Kategoriler başlığı -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Grid.Column="0" Text="Kategoriler" FontFamily="OpenSansSemibold" FontSize="18" TextColor="{StaticResource TextPrimary}" />
+                <Label Grid.Column="1" Text="Tümünü Gör" FontSize="14" TextColor="{StaticResource Primary}" />
+            </Grid>
+
+            <!-- Kategori kısayolları - yatay -->
+            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                <HorizontalStackLayout Spacing="18">
+
+                    <VerticalStackLayout Spacing="6" HorizontalOptions="Center" WidthRequest="70">
+                        <Border StrokeShape="RoundRectangle 32" BackgroundColor="{StaticResource Secondary}" WidthRequest="64" HeightRequest="64">
+                            <Label Text="🍎" FontSize="28" HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <Label Text="Meyve&amp;Sebze" FontSize="12" HorizontalTextAlignment="Center" TextColor="{StaticResource TextPrimary}" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="6" HorizontalOptions="Center" WidthRequest="70">
+                        <Border StrokeShape="RoundRectangle 32" BackgroundColor="{StaticResource Secondary}" WidthRequest="64" HeightRequest="64">
+                            <Label Text="🥛" FontSize="28" HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <Label Text="Süt Ürünleri" FontSize="12" HorizontalTextAlignment="Center" TextColor="{StaticResource TextPrimary}" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="6" HorizontalOptions="Center" WidthRequest="70">
+                        <Border StrokeShape="RoundRectangle 32" BackgroundColor="{StaticResource Secondary}" WidthRequest="64" HeightRequest="64">
+                            <Label Text="🥖" FontSize="28" HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <Label Text="Fırın" FontSize="12" HorizontalTextAlignment="Center" TextColor="{StaticResource TextPrimary}" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="6" HorizontalOptions="Center" WidthRequest="70">
+                        <Border StrokeShape="RoundRectangle 32" BackgroundColor="{StaticResource Secondary}" WidthRequest="64" HeightRequest="64">
+                            <Label Text="🥤" FontSize="28" HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <Label Text="İçecek" FontSize="12" HorizontalTextAlignment="Center" TextColor="{StaticResource TextPrimary}" />
+                    </VerticalStackLayout>
+
+                </HorizontalStackLayout>
+            </ScrollView>
+
+        </VerticalStackLayout>
+    </ScrollView>
 
 </ContentPage>
-
