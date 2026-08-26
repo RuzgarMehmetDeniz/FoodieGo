@@ -1,43 +1,147 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FoodieGo.Pages.ProductsPage"
-             BackgroundColor="{StaticResource Background}"
-             Title="Ürünler">
 
-    <Grid RowDefinitions="Auto,*" Padding="16,16,16,0">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="FoodieGo.Pages.ProductsPage"
+    BackgroundColor="{StaticResource Background}"
+    Title="Ürünler">
 
-        <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="0,0,0,12">
-            <Label Grid.Column="0" Text="Ürünler" FontFamily="OpenSansSemibold" FontSize="22" TextColor="{StaticResource TextPrimary}" />
-            <Label Grid.Column="1" x:Name="ProductCountLabel" FontSize="14" TextColor="{StaticResource TextSecondary}" VerticalOptions="Center" />
+    <Grid
+        RowDefinitions="Auto,*"
+        Padding="16,16,16,0">
+
+        <!-- BAŞLIK -->
+        <Grid
+            Grid.Row="0"
+            ColumnDefinitions="*,Auto"
+            Margin="0,0,0,12">
+
+            <Label
+                Grid.Column="0"
+                Text="Ürünler"
+                FontFamily="OpenSansSemibold"
+                FontSize="22"
+                TextColor="{StaticResource TextPrimary}" />
+
+            <Label
+                Grid.Column="1"
+                x:Name="ProductCountLabel"
+                FontSize="14"
+                TextColor="{StaticResource TextSecondary}"
+                VerticalOptions="Center" />
+
         </Grid>
 
-        <CollectionView Grid.Row="1" x:Name="ProductsList">
+        <!-- ÜRÜN LİSTESİ -->
+        <CollectionView
+            Grid.Row="1"
+            x:Name="ProductsList"
+            SelectionMode="None">
+
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="12" VerticalItemSpacing="12" />
+
+                <GridItemsLayout
+                    Orientation="Vertical"
+                    Span="2"
+                    HorizontalItemSpacing="12"
+                    VerticalItemSpacing="12" />
+
             </CollectionView.ItemsLayout>
+
             <CollectionView.ItemTemplate>
+
                 <DataTemplate>
-                    <Border StrokeShape="RoundRectangle 16"
-                            BackgroundColor="{StaticResource CardBackground}"
-                            Stroke="{StaticResource Divider}"
-                            Padding="12">
+
+                    <Border
+                        StrokeShape="RoundRectangle 16"
+                        BackgroundColor="{StaticResource CardBackground}"
+                        Stroke="{StaticResource Divider}"
+                        Padding="12">
+
                         <VerticalStackLayout Spacing="6">
-                            <Border StrokeShape="RoundRectangle 12" BackgroundColor="{StaticResource Secondary}" HeightRequest="90">
-                                <Label Text="{Binding Emoji}" FontSize="40" HorizontalOptions="Center" VerticalOptions="Center" />
+
+                            <!-- ÜRÜN GÖRSELİ -->
+                            <Border
+                                StrokeShape="RoundRectangle 12"
+                                BackgroundColor="{StaticResource Secondary}"
+                                HeightRequest="110">
+
+                                <Image
+                                    Source="{Binding Image}"
+                                    Aspect="AspectFit"
+                                    Margin="10" />
+
                             </Border>
-                            <Label Text="{Binding Name}" FontFamily="OpenSansSemibold" FontSize="14" TextColor="{StaticResource TextPrimary}" LineBreakMode="TailTruncation" />
-                            <Label Text="{Binding Unit}" FontSize="12" TextColor="{StaticResource TextSecondary}" />
-                            <Grid ColumnDefinitions="*,Auto">
-                                <Label Grid.Column="0" Text="{Binding Price, StringFormat='{0:0.00} TL'}" FontFamily="OpenSansSemibold" FontSize="15" TextColor="{StaticResource Primary}" VerticalOptions="Center" />
-                                <Border Grid.Column="1" StrokeShape="RoundRectangle 14" BackgroundColor="{StaticResource Primary}" WidthRequest="28" HeightRequest="28" Padding="0">
-                                    <Label Text="+" TextColor="White" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center" />
+
+                            <!-- ÜRÜN ADI -->
+                            <Label
+                                Text="{Binding Name}"
+                                FontFamily="OpenSansSemibold"
+                                FontSize="14"
+                                TextColor="{StaticResource TextPrimary}"
+                                LineBreakMode="TailTruncation"
+                                MaxLines="1" />
+
+                            <!-- BİRİM -->
+                            <Label
+                                Text="{Binding Unit}"
+                                FontSize="12"
+                                TextColor="{StaticResource TextSecondary}" />
+
+                            <!-- FİYAT -->
+                            <Grid
+                                ColumnDefinitions="*,Auto"
+                                Margin="0,4,0,0">
+
+                                <VerticalStackLayout
+                                    Grid.Column="0"
+                                    Spacing="0">
+
+                                    <!-- ESKİ FİYAT -->
+                                    <Label
+                                        Text="{Binding OldPrice, StringFormat='{0:0.00} TL'}"
+                                        FontSize="11"
+                                        TextColor="{StaticResource TextSecondary}"
+                                        TextDecorations="Strikethrough" />
+
+                                    <!-- GÜNCEL FİYAT -->
+                                    <Label
+                                        Text="{Binding Price, StringFormat='{0:0.00} TL'}"
+                                        FontFamily="OpenSansSemibold"
+                                        FontSize="15"
+                                        TextColor="{StaticResource Primary}" />
+
+                                </VerticalStackLayout>
+
+                                <!-- + BUTONU -->
+                                <Border
+                                    Grid.Column="1"
+                                    StrokeShape="RoundRectangle 14"
+                                    BackgroundColor="{StaticResource Primary}"
+                                    WidthRequest="32"
+                                    HeightRequest="32"
+                                    Padding="0">
+
+                                    <Label
+                                        Text="+"
+                                        TextColor="White"
+                                        FontSize="20"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center" />
+
                                 </Border>
+
                             </Grid>
+
                         </VerticalStackLayout>
+
                     </Border>
+
                 </DataTemplate>
+
             </CollectionView.ItemTemplate>
+
         </CollectionView>
 
     </Grid>

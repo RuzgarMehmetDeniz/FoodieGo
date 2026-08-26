@@ -1,36 +1,45 @@
-﻿using System.Collections.ObjectModel;
+﻿using FoodieGo.Models;
+using FoodieGo.Services;
 
 namespace FoodieGo.Pages
 {
-    // Geçici görüntüleme sınıfı - DB bağlanınca Models/Product kullanılacak
-    public class ProductDisplayItem
-    {
-        public string Name { get; set; }
-        public string Unit { get; set; }
-        public decimal Price { get; set; }
-        public string Emoji { get; set; }
-    }
-
     public partial class ProductsPage : ContentPage
     {
+        private readonly DatabaseService _databaseService;
+
         public ProductsPage()
         {
             InitializeComponent();
 
-            var demoProducts = new ObservableCollection<ProductDisplayItem>
+            _databaseService = new DatabaseService();
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            await LoadProductsAsync();
+        }
+
+        private async Task LoadProductsAsync()
+        {
+            try
             {
-                new() { Name = "Elma (Kg)", Unit = "1 kg", Price = 34.90m, Emoji = "🍎" },
-                new() { Name = "Tam Yağlı Süt", Unit = "1 L", Price = 27.50m, Emoji = "🥛" },
-                new() { Name = "Ekmek", Unit = "1 adet", Price = 12.00m, Emoji = "🥖" },
-                new() { Name = "Portakal Suyu", Unit = "1 L", Price = 39.90m, Emoji = "🧃" },
-                new() { Name = "Muz (Kg)", Unit = "1 kg", Price = 44.90m, Emoji = "🍌" },
-                new() { Name = "Yumurta (15'li)", Unit = "1 koli", Price = 89.90m, Emoji = "🥚" },
-            };
+                List<Product> products =
+                    await _databaseService.GetProductsAsync();
 
-            ProductsList.ItemsSource = demoProducts;
+                ProductsList.ItemsSource = products;
 
-            // Case Görev 6: başlıkta toplam ürün sayısı dinamik gösterilmeli
-            ProductCountLabel.Text = $"{demoProducts.Count} ürün";
+                ProductCountLabel.Text =
+                    $"{products.Count} ürün";
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert(
+                    "Hata",
+                    $"Ürünler yüklenirken hata oluştu:\n{ex.Message}",
+                    "Tamam");
+            }
         }
     }
 }

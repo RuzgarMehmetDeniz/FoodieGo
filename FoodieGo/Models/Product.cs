@@ -13,19 +13,18 @@ namespace FoodieGo.Models
         public int Id { get; set; }
 
         [MaxLength(150)]
-        public string Name { get; set; }       // "Domates Salkım"
+        public string Name { get; set; }
 
-        public string Unit { get; set; }        // "1 kg", "Adet", "400 g"
+        public string Unit { get; set; }
 
-        public decimal Price { get; set; }      // 54.90
+        public decimal Price { get; set; }
 
-        public decimal OldPrice { get; set; }   // indirim öncesi fiyat (yoksa 0)
+        public decimal OldPrice { get; set; }
 
-        public string Image { get; set; }       // görsel adı veya emoji
+        public string Image { get; set; }
 
-        public string Badge { get; set; }       // "Çok Satan", "Yeni Sezon" (yoksa boş)
+        public string Badge { get; set; }
 
-        // İlişki: bu ürün hangi kategoriye ait
         public int CategoryId { get; set; }
     }
 
