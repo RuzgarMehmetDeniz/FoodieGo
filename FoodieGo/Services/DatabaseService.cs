@@ -101,7 +101,7 @@ namespace FoodieGo.Services
         // =========================
         // SEPETE ÜRÜN EKLE
         // =========================
-        public async Task AddToCartAsync(int productId)
+        public async Task AddToCartAsync(int productId, int quantity = 1)
         {
             await Init();
 
@@ -112,19 +112,16 @@ namespace FoodieGo.Services
 
             if (existing == null)
             {
-                // Ürün sepette yoksa yeni kayıt oluştur
                 await _db.InsertAsync(
                     new CartItem
                     {
                         ProductId = productId,
-                        Quantity = 1
+                        Quantity = quantity
                     });
             }
             else
             {
-                // Ürün zaten varsa adedini artır
-                existing.Quantity++;
-
+                existing.Quantity += quantity;
                 await _db.UpdateAsync(existing);
             }
         }

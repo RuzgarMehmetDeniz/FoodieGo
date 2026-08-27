@@ -21,30 +21,33 @@
                 </Border>
             </Grid>
 
-            <Border StrokeShape="RoundRectangle 20" BackgroundColor="{StaticResource Secondary}" HeightRequest="220">
-                <Label Text="🍎" FontSize="90" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Border StrokeShape="RoundRectangle 20" BackgroundColor="{StaticResource Secondary}" HeightRequest="220" Padding="0">
+                <Image x:Name="ProductImage" Aspect="AspectFill" HeightRequest="220" />
             </Border>
 
-            <Label Text="Elma (Kg)" FontFamily="OpenSansSemibold" FontSize="24" TextColor="{StaticResource TextPrimary}" />
-            <Label Text="1 kg birim fiyatıdır." FontSize="14" TextColor="{StaticResource TextSecondary}" />
-            <Label Text="34,90 TL" FontFamily="OpenSansSemibold" FontSize="26" TextColor="{StaticResource Primary}" />
-
-            <Border StrokeShape="RoundRectangle 12" Stroke="{StaticResource Divider}" Padding="16">
-                <Label Text="Taze, yerli üretim elma. Serin ve kuru yerde saklanması önerilir." FontSize="14"
-                       TextColor="{StaticResource TextPrimary}" />
-            </Border>
+            <Label x:Name="ProductNameLabel" FontFamily="OpenSansSemibold" FontSize="24" TextColor="{StaticResource TextPrimary}" />
+            <Label x:Name="ProductUnitLabel" FontSize="14" TextColor="{StaticResource TextSecondary}" />
+            <Label x:Name="ProductPriceLabel" FontFamily="OpenSansSemibold" FontSize="26" TextColor="{StaticResource Primary}" />
 
             <Grid ColumnDefinitions="Auto,Auto,Auto" ColumnSpacing="16" HorizontalOptions="Center">
                 <Border Grid.Column="0" StrokeShape="RoundRectangle 18" BackgroundColor="{StaticResource Secondary}" WidthRequest="36" HeightRequest="36">
-                    <Label Text="-" FontSize="20" TextColor="{StaticResource TextPrimary}" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Label Text="-" FontSize="20" TextColor="{StaticResource TextPrimary}" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnDecreaseTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
                 </Border>
-                <Label Grid.Column="1" Text="1" FontSize="18" FontFamily="OpenSansSemibold" VerticalOptions="Center" TextColor="{StaticResource TextPrimary}" />
+                <Label x:Name="QuantityLabel" Grid.Column="1" Text="1" FontSize="18" FontFamily="OpenSansSemibold" VerticalOptions="Center" TextColor="{StaticResource TextPrimary}" />
                 <Border Grid.Column="2" StrokeShape="RoundRectangle 18" BackgroundColor="{StaticResource Primary}" WidthRequest="36" HeightRequest="36">
-                    <Label Text="+" FontSize="20" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Label Text="+" FontSize="20" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnIncreaseTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
                 </Border>
             </Grid>
 
-            <Button Text="Sepete Ekle" FontFamily="OpenSansSemibold" HeightRequest="50" CornerRadius="12" />
+            <Button Text="Sepete Ekle" FontFamily="OpenSansSemibold" HeightRequest="50" CornerRadius="12" Clicked="OnAddToCartClicked" />
 
         </VerticalStackLayout>
     </ScrollView>

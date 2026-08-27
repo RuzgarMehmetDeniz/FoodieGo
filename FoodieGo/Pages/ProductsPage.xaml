@@ -54,6 +54,10 @@
                                     Stroke="{StaticResource Divider}"
                                     Padding="12">
 
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnProductCardTapped" />
+                                </Border.GestureRecognizers>
+
                                 <VerticalStackLayout Spacing="8">
                                     <!-- Ürün Görseli -->
                                     <Border StrokeShape="RoundRectangle 12"

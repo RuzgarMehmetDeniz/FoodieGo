@@ -1,4 +1,6 @@
-﻿using FoodieGo.Services;
+﻿using FoodieGo.Models;
+using FoodieGo.Services;
+
 namespace FoodieGo.Pages
 {
     public partial class ProductsPage : ContentPage
@@ -63,6 +65,17 @@ namespace FoodieGo.Pages
             {
                 await DisplayAlert("Hata", $"Ürün sepete eklenirken bir sorun oluştu: {ex.Message}", "Tamam");
             }
+        }
+
+        private async void OnProductCardTapped(object sender, EventArgs e)
+        {
+            if (sender is not Border border)
+                return;
+
+            if (border.BindingContext is not Product product)
+                return;
+
+            await Navigation.PushAsync(new ProductDetailPage(product));
         }
 
         private async Task ShowToastAsync(string message)
