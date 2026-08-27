@@ -4,7 +4,6 @@ namespace FoodieGo.Pages
 {
 
 
-
     public partial class OrdersPage : ContentPage
     {
         private readonly DatabaseService _db = new DatabaseService();
