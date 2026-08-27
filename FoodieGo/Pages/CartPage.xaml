@@ -84,8 +84,8 @@
                     <Label Text="Toplam" FontSize="13" TextColor="#D7EDE1" />
                     <Label x:Name="TotalLabel" FontFamily="OpenSansSemibold" FontSize="20" TextColor="White" />
                 </VerticalStackLayout>
-                <Button Grid.Column="1" Text="Siparişi Tamamla" BackgroundColor="White" TextColor="{StaticResource Primary}"
-                        FontFamily="OpenSansSemibold" CornerRadius="10" VerticalOptions="Center" />
+                <Button x:Name="CheckoutButton" Grid.Column="1" Text="Siparişi Tamamla" BackgroundColor="White" TextColor="{StaticResource Primary}"
+                        FontFamily="OpenSansSemibold" CornerRadius="10" VerticalOptions="Center" Clicked="OnCheckoutClicked" />
             </Grid>
         </Border>
     </Grid>

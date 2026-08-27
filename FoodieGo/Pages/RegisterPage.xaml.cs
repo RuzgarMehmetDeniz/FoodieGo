@@ -47,16 +47,15 @@ namespace FoodieGo.Pages
                 return;
             }
 
-            // Kayýt baþarýlý, kullanýcýyý oturuma al ve ana sayfaya yönlendir
-            var user = await _db.LoginAsync(email, password);
-            SessionService.Login(user);
+            // Kayýt baþarýlý, kullanýcýyý Login ekranýna yönlendir
+            await DisplayAlert("Baþarýlý", "Kaydýn oluþturuldu, þimdi giriþ yapabilirsin.", "Tamam");
 
-            await Shell.Current.GoToAsync("//MainPage");
+            Application.Current.MainPage = new LoginPage();
         }
 
-        private async void OnGoToLoginTapped(object sender, EventArgs e)
+        private void OnGoToLoginTapped(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync(nameof(LoginPage));
+            Application.Current.MainPage = new LoginPage();
         }
 
         private void ShowError(string message)

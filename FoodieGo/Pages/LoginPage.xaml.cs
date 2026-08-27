@@ -34,12 +34,12 @@ namespace FoodieGo.Pages
 
             SessionService.Login(user);
 
-            await Shell.Current.GoToAsync("//MainPage");
+            Application.Current.MainPage = new AppShell();
         }
 
-        private async void OnGoToRegisterTapped(object sender, EventArgs e)
+        private void OnGoToRegisterTapped(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync(nameof(RegisterPage));
+            Application.Current.MainPage = new RegisterPage();
         }
 
         private void ShowError(string message)

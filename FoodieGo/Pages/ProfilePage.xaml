@@ -17,8 +17,8 @@
                            TextColor="{StaticResource SecondaryDarkText}" HorizontalOptions="Center" VerticalOptions="Center" />
                 </Border>
                 <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                    <Label Text="Mehmet Deniz" FontFamily="OpenSansSemibold" FontSize="18" TextColor="{StaticResource TextPrimary}" />
-                    <Label Text="mehmet@example.com" FontSize="13" TextColor="{StaticResource TextSecondary}" />
+                    <Label x:Name="UserNameLabel" Text="Mehmet Deniz" FontFamily="OpenSansSemibold" FontSize="18" TextColor="{StaticResource TextPrimary}" />
+                    <Label x:Name="UserEmailLabel" Text="mehmet@example.com" FontSize="13" TextColor="{StaticResource TextSecondary}" />
                 </VerticalStackLayout>
             </Grid>
 
@@ -26,6 +26,9 @@
             <VerticalStackLayout Spacing="10">
 
                 <Border StrokeShape="RoundRectangle 14" BackgroundColor="{StaticResource CardBackground}" Stroke="{StaticResource Divider}" Padding="14">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnOrdersTapped" />
+                    </Border.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
                         <Label Grid.Column="0" Text="{x:Static helpers:IconFont.Receipt}" FontFamily="MaterialSymbols" FontSize="20" TextColor="{StaticResource Primary}" VerticalOptions="Center" />
                         <Label Grid.Column="1" Text="Siparişlerim" FontSize="15" TextColor="{StaticResource TextPrimary}" VerticalOptions="Center" />
@@ -85,6 +88,9 @@
                 </Border>
 
                 <Border StrokeShape="RoundRectangle 14" BackgroundColor="{StaticResource CardBackground}" Stroke="{StaticResource DiscountRed}" Padding="14">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnLogoutTapped" />
+                    </Border.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14">
                         <Label Grid.Column="0" Text="{x:Static helpers:IconFont.Logout}" FontFamily="MaterialSymbols" FontSize="20" TextColor="{StaticResource DiscountRed}" VerticalOptions="Center" />
                         <Label Grid.Column="1" Text="Çıkış Yap" FontSize="15" TextColor="{StaticResource DiscountRed}" VerticalOptions="Center" />

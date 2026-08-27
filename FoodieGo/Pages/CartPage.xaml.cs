@@ -25,9 +25,7 @@ namespace FoodieGo.Pages
             try
             {
                 List<CartDisplayItem> items = await _databaseService.GetCartDisplayItemsAsync();
-
                 CartList.ItemsSource = items;
-
                 decimal total = items.Sum(i => i.LineTotal);
                 TotalLabel.Text = $"{total:0.00} TL";
             }
@@ -41,13 +39,10 @@ namespace FoodieGo.Pages
         {
             if (sender is not Label label)
                 return;
-
             if (label.GestureRecognizers.FirstOrDefault() is not TapGestureRecognizer tap)
                 return;
-
             if (tap.CommandParameter is not int productId)
                 return;
-
             await _databaseService.AddToCartAsync(productId);
             await LoadCartAsync();
         }
@@ -56,15 +51,36 @@ namespace FoodieGo.Pages
         {
             if (sender is not Label label)
                 return;
-
             if (label.GestureRecognizers.FirstOrDefault() is not TapGestureRecognizer tap)
                 return;
-
             if (tap.CommandParameter is not int productId)
                 return;
-
             await _databaseService.RemoveFromCartAsync(productId);
             await LoadCartAsync();
+        }
+
+        private async void OnCheckoutClicked(object sender, EventArgs e)
+        {
+            var user = SessionService.CurrentUser;
+
+            if (user == null)
+            {
+                await DisplayAlert("Giriş Gerekli", "Sipariş verebilmek için giriş yapmalısın.", "Tamam");
+                return;
+            }
+
+            List<CartDisplayItem> items = await _databaseService.GetCartDisplayItemsAsync();
+
+            if (items.Count == 0)
+            {
+                await DisplayAlert("Sepet Boş", "Sipariş vermeden önce sepetine ürün eklemelisin.", "Tamam");
+                return;
+            }
+
+            await _databaseService.PlaceOrderAsync(user.Id);
+            await LoadCartAsync();
+
+            await DisplayAlert("Siparişin Alındı", "Siparişin başarıyla oluşturuldu!", "Tamam");
         }
     }
 }

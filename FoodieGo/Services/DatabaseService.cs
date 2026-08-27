@@ -28,6 +28,8 @@ namespace FoodieGo.Services
             await _db.CreateTableAsync<Discount>();
             await _db.CreateTableAsync<CartItem>();
             await _db.CreateTableAsync<User>();
+            await _db.CreateTableAsync<Order>();
+            await _db.CreateTableAsync<OrderItem>();
 
         }
 
@@ -291,5 +293,85 @@ namespace FoodieGo.Services
                 .Where(u => u.Email == email && u.Password == password)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task PlaceOrderAsync(int userId)
+        {
+            await Init();
+
+            List<CartDisplayItem> cartDisplayItems = await GetCartDisplayItemsAsync();
+
+            if (cartDisplayItems.Count == 0)
+                return;
+
+            decimal total = cartDisplayItems.Sum(c => c.Price * c.Quantity);
+
+            Order order = new Order
+            {
+                UserId = userId,
+                OrderDate = DateTime.Now.ToString("dd.MM.yyyy HH:mm"),
+                Total = total
+            };
+
+            await _db.InsertAsync(order);
+
+            foreach (CartDisplayItem item in cartDisplayItems)
+            {
+                await _db.InsertAsync(new OrderItem
+                {
+                    OrderId = order.Id,
+                    ProductId = item.ProductId,
+                    ProductName = item.Name,
+                    Price = item.Price,
+                    Quantity = item.Quantity
+                });
+            }
+
+            // Sipariş oluştuktan sonra sepeti boşalt
+            List<CartItem> cartItems = await _db.Table<CartItem>().ToListAsync();
+
+            foreach (CartItem cartItem in cartItems)
+            {
+                await _db.DeleteAsync(cartItem);
+            }
+        }
+
+
+        // =========================
+        // KULLANICININ SİPARİŞLERİ
+        // =========================
+        public async Task<List<OrderDisplayItem>> GetOrdersForUserAsync(int userId)
+        {
+            await Init();
+
+            List<Order> orders = await _db
+                .Table<Order>()
+                .Where(o => o.UserId == userId)
+                .OrderByDescending(o => o.Id)
+                .ToListAsync();
+
+            List<OrderItem> allOrderItems = await _db
+                .Table<OrderItem>()
+                .ToListAsync();
+
+            List<OrderDisplayItem> result = new List<OrderDisplayItem>();
+
+            foreach (Order order in orders)
+            {
+                int itemCount = allOrderItems
+                    .Where(oi => oi.OrderId == order.Id)
+                    .Sum(oi => oi.Quantity);
+
+                result.Add(new OrderDisplayItem
+                {
+                    OrderId = order.Id,
+                    OrderDate = order.OrderDate,
+                    Total = order.Total,
+                    ItemCount = itemCount
+                });
+            }
+
+            return result;
+        }
+
     }
 }
