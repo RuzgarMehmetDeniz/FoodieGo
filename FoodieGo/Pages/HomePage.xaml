@@ -46,7 +46,7 @@
                 Padding="16,0"
                 HeightRequest="48">
 
-                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
                     <Label
                         Grid.Column="0"
                         Text="{x:Static helpers:IconFont.Search}"
@@ -56,212 +56,239 @@
                         VerticalOptions="Center" />
 
                     <Entry
+                        x:Name="SearchEntry"
                         Grid.Column="1"
                         Placeholder="Ürün, kategori veya marka ara"
                         PlaceholderColor="{StaticResource TextSecondary}"
                         TextColor="{StaticResource TextPrimary}"
                         BackgroundColor="Transparent"
-                        VerticalOptions="Center" />
+                        VerticalOptions="Center"
+                        TextChanged="OnSearchTextChanged" />
+
+                    <Label
+                        x:Name="ClearSearchLabel"
+                        Grid.Column="2"
+                        Text="✕"
+                        FontSize="16"
+                        TextColor="{StaticResource TextSecondary}"
+                        VerticalOptions="Center"
+                        IsVisible="False">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnClearSearchTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
                 </Grid>
             </Border>
 
-            <!-- KAMPANYA BANNERLARI -->
-            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
-                <HorizontalStackLayout Spacing="12">
+            <!-- ================= ARAMA SONUÇLARI ================= -->
+            <VerticalStackLayout x:Name="SearchResultsSection" IsVisible="False" Spacing="10">
 
-                    <!-- İNDİRİM BANNER -->
-                    <Border
-                        StrokeShape="RoundRectangle 18"
-                        BackgroundColor="{StaticResource Primary}"
-                        WidthRequest="240"
-                        HeightRequest="130"
-                        Padding="16">
+                <Label x:Name="SearchResultsCountLabel" Text="0 sonuç" FontSize="13" TextColor="{StaticResource TextSecondary}" />
 
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnDiscountsBannerTapped" />
-                        </Border.GestureRecognizers>
+                <CollectionView x:Name="SearchResultsList">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
 
-                        <VerticalStackLayout VerticalOptions="Center" Spacing="8">
-                            <Border
-                                StrokeShape="RoundRectangle 20"
-                                BackgroundColor="{StaticResource DiscountRed}"
-                                Padding="10,4"
-                                HorizontalOptions="Start">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border StrokeShape="RoundRectangle 14" BackgroundColor="{StaticResource CardBackground}"
+                                    Stroke="{StaticResource Divider}" Padding="10">
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                    <Border Grid.Column="0" StrokeShape="RoundRectangle 10" BackgroundColor="{StaticResource Secondary}"
+                                            WidthRequest="48" HeightRequest="48" Padding="0" Stroke="Transparent">
+                                        <Image Source="{Binding Image}" Aspect="AspectFill" WidthRequest="48" HeightRequest="48" />
+                                    </Border>
+
+                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                                        <Label Text="{Binding Name}" FontFamily="OpenSansSemibold" FontSize="14" TextColor="{StaticResource TextPrimary}" />
+                                        <Label Text="{Binding Price, StringFormat='{0:0.00} TL'}" FontSize="13" TextColor="{StaticResource Primary}" />
+                                    </VerticalStackLayout>
+
+                                    <Border Grid.Column="2" StrokeShape="RoundRectangle 14" BackgroundColor="{StaticResource Primary}"
+                                            WidthRequest="32" HeightRequest="32" Padding="0" VerticalOptions="Center">
+                                        <Label Text="+" FontSize="18" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnSearchResultAddTapped" CommandParameter="{Binding Id}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout HorizontalOptions="Center" Padding="30,20" Spacing="6">
+                            <Label Text="Aramanla eşleşen ürün bulunamadı." TextColor="{StaticResource TextSecondary}" FontSize="14" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <!-- ================= NORMAL ANA SAYFA İÇERİĞİ ================= -->
+            <VerticalStackLayout x:Name="DefaultContentSection" IsVisible="True" Spacing="18">
+
+                <!-- KAMPANYA BANNERLARI -->
+                <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                    <HorizontalStackLayout Spacing="12">
+
+                        <!-- İNDİRİM BANNER -->
+                        <Border
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="{StaticResource Primary}"
+                            WidthRequest="240"
+                            HeightRequest="130"
+                            Padding="16">
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDiscountsBannerTapped" />
+                            </Border.GestureRecognizers>
+
+                            <VerticalStackLayout VerticalOptions="Center" Spacing="8">
+                                <Border
+                                    StrokeShape="RoundRectangle 20"
+                                    BackgroundColor="{StaticResource DiscountRed}"
+                                    Padding="10,4"
+                                    HorizontalOptions="Start">
+
+                                    <Label
+                                        Text="%30 İndirim"
+                                        TextColor="White"
+                                        FontSize="12"
+                                        FontFamily="OpenSansSemibold" />
+                                </Border>
 
                                 <Label
-                                    Text="%30 İndirim"
+                                    Text="Haftanın Fırsatları"
                                     TextColor="White"
-                                    FontSize="12"
+                                    FontSize="19"
                                     FontFamily="OpenSansSemibold" />
-                            </Border>
+                            </VerticalStackLayout>
+                        </Border>
 
-                            <Label
-                                Text="Haftanın Fırsatları"
-                                TextColor="White"
-                                FontSize="19"
-                                FontFamily="OpenSansSemibold" />
-                        </VerticalStackLayout>
-                    </Border>
+                        <!-- İKİNCİ BANNER (yemek temalı, genel) -->
+                        <Border
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="{StaticResource SecondaryDarkText}"
+                            WidthRequest="240"
+                            HeightRequest="130"
+                            Padding="16">
 
-                    <!-- MEYVE SEBZE BANNER -->
-                    <Border
-                        StrokeShape="RoundRectangle 18"
-                        BackgroundColor="{StaticResource SecondaryDarkText}"
-                        WidthRequest="240"
-                        HeightRequest="130"
-                        Padding="16">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnAllProductsTapped" />
+                            </Border.GestureRecognizers>
 
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnAllProductsTapped" />
-                        </Border.GestureRecognizers>
+                            <VerticalStackLayout VerticalOptions="Center" Spacing="8">
+                                <Border
+                                    StrokeShape="RoundRectangle 20"
+                                    BackgroundColor="{StaticResource CardBackground}"
+                                    Padding="10,4"
+                                    HorizontalOptions="Start">
 
-                        <VerticalStackLayout VerticalOptions="Center" Spacing="8">
-                            <Border
-                                StrokeShape="RoundRectangle 20"
-                                BackgroundColor="{StaticResource CardBackground}"
-                                Padding="10,4"
-                                HorizontalOptions="Start">
+                                    <Label
+                                        Text="Yeni"
+                                        TextColor="{StaticResource SecondaryDarkText}"
+                                        FontSize="12"
+                                        FontFamily="OpenSansSemibold" />
+                                </Border>
 
                                 <Label
-                                    Text="Taze"
-                                    TextColor="{StaticResource SecondaryDarkText}"
-                                    FontSize="12"
+                                    Text="Bugüne Özel Lezzetler"
+                                    TextColor="White"
+                                    FontSize="18"
                                     FontFamily="OpenSansSemibold" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                    </HorizontalStackLayout>
+                </ScrollView>
+
+                <!-- KATEGORİLER BAŞLIĞI -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label
+                        Grid.Column="0"
+                        Text="Kategoriler"
+                        FontFamily="OpenSansSemibold"
+                        FontSize="18"
+                        TextColor="{StaticResource TextPrimary}"
+                        VerticalOptions="Center" />
+                </Grid>
+
+                <!-- KATEGORİLER (DB'den dinamik, CollectionView kendi yatay scroll'unu kullanıyor) -->
+                <CollectionView x:Name="CategoriesList" HeightRequest="110">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="18" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <VerticalStackLayout Spacing="6" HorizontalOptions="Center" WidthRequest="70">
+                                <VerticalStackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnCategoryTapped" CommandParameter="{Binding Id}" />
+                                </VerticalStackLayout.GestureRecognizers>
+
+                                <Border
+                                    StrokeShape="RoundRectangle 32"
+                                    BackgroundColor="{StaticResource Secondary}"
+                                    WidthRequest="64"
+                                    HeightRequest="64">
+
+                                    <Label
+                                        Text="{Binding Icon}"
+                                        FontSize="28"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center" />
+                                </Border>
+
+                                <Label
+                                    Text="{Binding Name}"
+                                    FontSize="12"
+                                    HorizontalTextAlignment="Center"
+                                    LineBreakMode="TailTruncation"
+                                    TextColor="{StaticResource TextPrimary}" />
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- ÖNE ÇIKAN ÜRÜNLER (DB'den gerçek veri) -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout Grid.Column="0" Spacing="2">
+                        <Label Text="Ürünlerimiz" FontFamily="OpenSansSemibold" FontSize="18" TextColor="{StaticResource TextPrimary}" />
+                        <Label x:Name="ProductCountLabel" Text="0 ürün" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                    </VerticalStackLayout>
+                    <Label Grid.Column="1" Text="Tümünü Gör" FontSize="13" FontFamily="OpenSansSemibold"
+                           TextColor="{StaticResource Primary}" VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAllProductsTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+
+                <CollectionView x:Name="FeaturedProductsList" HeightRequest="180">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="0" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border StrokeShape="RoundRectangle 16" BackgroundColor="{StaticResource CardBackground}"
+                                    Stroke="{StaticResource Divider}" Padding="10" WidthRequest="130" Margin="0,0,10,0">
+                                <VerticalStackLayout Spacing="6">
+                                    <Border StrokeShape="RoundRectangle 12" BackgroundColor="{StaticResource Secondary}"
+                                            HeightRequest="90" Padding="0" Stroke="Transparent">
+                                        <Image Source="{Binding Image}" Aspect="AspectFill" HeightRequest="90" />
+                                    </Border>
+                                    <Label Text="{Binding Name}" FontFamily="OpenSansSemibold" FontSize="13"
+                                           TextColor="{StaticResource TextPrimary}" LineBreakMode="TailTruncation" />
+                                    <Label Text="{Binding Price, StringFormat='{0:0.00} TL'}" FontSize="13" TextColor="{StaticResource Primary}" />
+                                </VerticalStackLayout>
                             </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
-                            <Label
-                                Text="Meyve &amp; Sebzede Taptaze"
-                                TextColor="White"
-                                FontSize="18"
-                                FontFamily="OpenSansSemibold" />
-                        </VerticalStackLayout>
-                    </Border>
-
-                </HorizontalStackLayout>
-            </ScrollView>
-
-            <!-- KATEGORİLER BAŞLIĞI VE TÜMÜNÜ GÖR -->
-            <Grid ColumnDefinitions="*,Auto">
-                <Label
-                    Grid.Column="0"
-                    Text="Kategoriler"
-                    FontFamily="OpenSansSemibold"
-                    FontSize="18"
-                    TextColor="{StaticResource TextPrimary}"
-                    VerticalOptions="Center" />
-
-            </Grid>
-
-            <!-- KATEGORİ KISAYOLLARI -->
-            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
-                <HorizontalStackLayout Spacing="18">
-
-                    <!-- MEYVE & SEBZE -->
-                    <VerticalStackLayout Spacing="6" HorizontalOptions="Center" WidthRequest="70">
-                        <VerticalStackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnAllProductsTapped" />
-                        </VerticalStackLayout.GestureRecognizers>
-
-                        <Border
-                            StrokeShape="RoundRectangle 32"
-                            BackgroundColor="{StaticResource Secondary}"
-                            WidthRequest="64"
-                            HeightRequest="64">
-
-                            <Label
-                                Text="🍎"
-                                FontSize="28"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center" />
-                        </Border>
-
-                        <Label
-                            Text="Meyve &amp; Sebze"
-                            FontSize="12"
-                            HorizontalTextAlignment="Center"
-                            TextColor="{StaticResource TextPrimary}" />
-                    </VerticalStackLayout>
-
-                    <!-- SÜT ÜRÜNLERİ -->
-                    <VerticalStackLayout Spacing="6" HorizontalOptions="Center" WidthRequest="70">
-                        <VerticalStackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnAllProductsTapped" />
-                        </VerticalStackLayout.GestureRecognizers>
-
-                        <Border
-                            StrokeShape="RoundRectangle 32"
-                            BackgroundColor="{StaticResource Secondary}"
-                            WidthRequest="64"
-                            HeightRequest="64">
-
-                            <Label
-                                Text="🥛"
-                                FontSize="28"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center" />
-                        </Border>
-
-                        <Label
-                            Text="Süt Ürünleri"
-                            FontSize="12"
-                            HorizontalTextAlignment="Center"
-                            TextColor="{StaticResource TextPrimary}" />
-                    </VerticalStackLayout>
-
-                    <!-- FIRIN -->
-                    <VerticalStackLayout Spacing="6" HorizontalOptions="Center" WidthRequest="70">
-                        <VerticalStackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnAllProductsTapped" />
-                        </VerticalStackLayout.GestureRecognizers>
-
-                        <Border
-                            StrokeShape="RoundRectangle 32"
-                            BackgroundColor="{StaticResource Secondary}"
-                            WidthRequest="64"
-                            HeightRequest="64">
-
-                            <Label
-                                Text="🥖"
-                                FontSize="28"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center" />
-                        </Border>
-
-                        <Label
-                            Text="Fırın"
-                            FontSize="12"
-                            HorizontalTextAlignment="Center"
-                            TextColor="{StaticResource TextPrimary}" />
-                    </VerticalStackLayout>
-
-                    <!-- İÇECEK -->
-                    <VerticalStackLayout Spacing="6" HorizontalOptions="Center" WidthRequest="70">
-                        <VerticalStackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnAllProductsTapped" />
-                        </VerticalStackLayout.GestureRecognizers>
-
-                        <Border
-                            StrokeShape="RoundRectangle 32"
-                            BackgroundColor="{StaticResource Secondary}"
-                            WidthRequest="64"
-                            HeightRequest="64">
-
-                            <Label
-                                Text="🥤"
-                                FontSize="28"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center" />
-                        </Border>
-
-                        <Label
-                            Text="İçecek"
-                            FontSize="12"
-                            HorizontalTextAlignment="Center"
-                            TextColor="{StaticResource TextPrimary}" />
-                    </VerticalStackLayout>
-
-                </HorizontalStackLayout>
-            </ScrollView>
+            </VerticalStackLayout>
 
         </VerticalStackLayout>
     </ScrollView>

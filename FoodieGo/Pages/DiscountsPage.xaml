@@ -6,9 +6,7 @@
              BackgroundColor="{StaticResource Background}"
               Shell.NavBarIsVisible="False"
              Title="İndirimler">
-
     <Grid RowDefinitions="Auto,*" Padding="16,16,16,0">
-
         <Grid Grid.Row="0" ColumnDefinitions="Auto,*" ColumnSpacing="12" Margin="0,0,0,12">
             <Border Grid.Column="0" StrokeShape="RoundRectangle 18" BackgroundColor="{StaticResource CardBackground}" WidthRequest="40" HeightRequest="40" Padding="0">
                 <Label Text="{x:Static helpers:IconFont.ArrowBack}" FontFamily="MaterialSymbols" FontSize="20"
@@ -23,7 +21,6 @@
                 <Label Text="Sana özel fırsatları kaçırma" FontSize="14" TextColor="{StaticResource TextSecondary}" />
             </VerticalStackLayout>
         </Grid>
-
         <CollectionView Grid.Row="1" x:Name="DiscountsList">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
@@ -32,31 +29,40 @@
                 <DataTemplate>
                     <Border StrokeShape="RoundRectangle 18"
                             BackgroundColor="{Binding BackgroundColor}"
-                            Padding="16"
-                            HeightRequest="120">
-                        <Grid ColumnDefinitions="Auto,*">
+                            Padding="0"
+                            HeightRequest="130">
 
-                            <Border Grid.Column="0"
-                                    StrokeShape="RoundRectangle 14"
-                                    BackgroundColor="#33FFFFFF"
-                                    Padding="12,6"
-                                    VerticalOptions="Center">
-                                <Label Text="{Binding Percentage, StringFormat='%{0}'}"
-                                       FontFamily="OpenSansSemibold" FontSize="24" TextColor="White" />
-                            </Border>
+                        <!-- Katmanlar: görsel (alt) + koyu katman (orta) + metin (üst) -->
+                        <Grid>
 
-                            <VerticalStackLayout Grid.Column="1" Margin="14,0,0,0" VerticalOptions="Center" Spacing="4">
-                                <Label Text="{Binding Title}" FontFamily="OpenSansSemibold" FontSize="17" TextColor="White" />
-                                <Label Text="{Binding Description}" FontSize="13" TextColor="White" Opacity="0.9" />
-                                <Label Text="{Binding EndDate, StringFormat='Son gün: {0}'}" FontSize="12" TextColor="White" Opacity="0.75" />
-                            </VerticalStackLayout>
+                            <!-- 1) Arka plan görseli -->
+                            <Image Source="{Binding Image}"
+                                   Aspect="AspectFill" />
+
+                            <!-- 2) Koyu katman - metnin okunabilir olması için -->
+                            <BoxView BackgroundColor="Black" Opacity="0.42" />
+
+                            <!-- 3) İçerik -->
+                            <Grid ColumnDefinitions="Auto,*" Padding="16">
+                                <Border Grid.Column="0"
+                                        StrokeShape="RoundRectangle 14"
+                                        BackgroundColor="#33FFFFFF"
+                                        Padding="12,6"
+                                        VerticalOptions="Center">
+                                    <Label Text="{Binding Percentage, StringFormat='%{0}'}"
+                                           FontFamily="OpenSansSemibold" FontSize="24" TextColor="White" />
+                                </Border>
+                                <VerticalStackLayout Grid.Column="1" Margin="14,0,0,0" VerticalOptions="Center" Spacing="4">
+                                    <Label Text="{Binding Title}" FontFamily="OpenSansSemibold" FontSize="17" TextColor="White" />
+                                    <Label Text="{Binding Description}" FontSize="13" TextColor="White" Opacity="0.95" />
+                                    <Label Text="{Binding EndDate, StringFormat='Son gün: {0}'}" FontSize="12" TextColor="White" Opacity="0.85" />
+                                </VerticalStackLayout>
+                            </Grid>
 
                         </Grid>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
     </Grid>
-
 </ContentPage>

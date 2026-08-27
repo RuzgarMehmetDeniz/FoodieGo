@@ -372,6 +372,20 @@ namespace FoodieGo.Services
 
             return result;
         }
+        public async Task<List<Product>> SearchProductsAsync(string query)
+        {
+            await Init();
 
+            if (string.IsNullOrWhiteSpace(query))
+                return new List<Product>();
+
+            List<Product> allProducts = await _db.Table<Product>().ToListAsync();
+
+            string normalizedQuery = query.Trim().ToLowerInvariant();
+
+            return allProducts
+                .Where(p => p.Name != null && p.Name.ToLowerInvariant().Contains(normalizedQuery))
+                .ToList();
+        }
     }
 }
